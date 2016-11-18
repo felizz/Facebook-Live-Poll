@@ -5,7 +5,6 @@
 var config = require('utils/config');
 var logger = require('utils/logger');
 var shortid = require('shortid');
-var UnprocessableError = require('infra/errors/unprocessable-error');
 var Poll = require('../models/poll');
 var DatabaseError = require('infra/errors/database-error');
 var SNError = require('infra/errors/sn-error');

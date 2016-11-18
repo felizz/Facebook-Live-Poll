@@ -1,16 +1,14 @@
 {
-  "app_name": "anhdong",
-  "log_level": "info",
+  "app_name": "facebook_live_poll",
+  "log_level": "debug",
   "database": {
-    "name": "anhdong"
+    "name": "facebook_live_poll"
   },
-
-  "web_prefix": "http://anhdong.vn",
+  "web_prefix": "http://4wens.com",
   "AWS" : {
-    "s3_bucket": "media.anhdong.vn",
-    "web_endpoint": "http://media.anhdong.vn/"
-  },
-
-  "facebook" : {
+    "api_key" : "AKIAJW4EAXPF5EGE2NPA",
+    "api_secret": "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",
+    "s3_bucket": "felizz-test",
+    "web_endpoint": "https://s3-ap-southeast-1.amazonaws.com/felizz-test/"
   }
 }

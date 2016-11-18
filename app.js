@@ -24,16 +24,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.locals.renderingUtils = require('./views/renderingUtils');
-
 
 // Configuring Passport
-var passport = require('passport');
 var session = require('express-session');
 app.use(session({secret: 'mySecretKey'}));
-app.use(passport.initialize());
-app.use(passport.session());
-
 
 //useragent
 app.use(useragent.express());

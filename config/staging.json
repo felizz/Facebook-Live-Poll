@@ -1,21 +1,14 @@
 {
-  "app_name": "anhdong",
+  "app_name": "facebook_live_poll",
   "log_level": "debug",
   "database": {
-    "name": "anhdong_dev"
+    "name": "facebook_live_poll"
   },
-
-  "web_prefix": "http://ad2.felizz.com",
-
+  "web_prefix": "http://localhost:6565",
   "AWS" : {
     "api_key" : "AKIAJW4EAXPF5EGE2NPA",
     "api_secret": "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",
     "s3_bucket": "felizz-test",
     "web_endpoint": "https://s3-ap-southeast-1.amazonaws.com/felizz-test/"
-  },
-
-  "facebook" : {
-    "app_id" : "628372210652116",
-    "app_secret" : "35d196a576abb64e88eb521f98a0e7e1"
   }
 }

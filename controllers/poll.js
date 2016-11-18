@@ -84,7 +84,7 @@ var poll = {
         });
     },
 
-    renderPollPage: function (req, res){
+    renderPollStreamPage: function (req, res){
         var pollId = req.params.poll_id;
         if(!shortid.isValid(pollId)){
             return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
@@ -98,7 +98,7 @@ var poll = {
                 return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
             }
 
-            return res.render('poll-view', {poll : poll,req: req});
+            return res.render('poll-stream', {poll : poll,req: req});
         });
     }
 };
