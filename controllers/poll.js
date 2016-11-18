@@ -11,6 +11,7 @@ var apiErrors = require('infra/api-errors');
 var logger = require('utils/logger');
 var validator = require('utils/validator');
 var IMG_DIR = 'public/images/';
+var servicePoll = require('../services/poll');
 
 var mediaService = require('../services/media');
 var shortid = require('shortid');
@@ -80,6 +81,24 @@ var poll = {
             mediaService.uploadImageToS3(IMG_DIR + req.file.filename, req.file.filename, function uploadS3Callback(err, url){
                 return res.status(statusCodes.CREATED).send({url: url});
             });
+        });
+    },
+
+    renderPollPage: function (req, res){
+        var pollId = req.params.poll_id;
+        if(!shortid.isValid(pollId)){
+            return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
+        }
+        servicePoll.getPollById(pollId, function getPollCallback(err, poll) {
+            if (err) {
+                return apiErrors.INTERNAL_SERVER_ERROR.new().sendWith(res);
+            }
+
+            if(!poll){
+                return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
+            }
+
+            return res.render('poll-view', {poll : poll,req: req});
         });
     }
 };

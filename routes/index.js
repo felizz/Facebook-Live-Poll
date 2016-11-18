@@ -4,7 +4,5 @@ var indexController = require('../controllers/index');
 
 router.get('/', indexController.renderHomePage);
 
-router.get('/:poll_id', indexController.renderPollPage);
-
 module.exports = router;
 
