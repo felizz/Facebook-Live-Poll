@@ -22,7 +22,7 @@ var client = knox.createClient({
 });
 
 module.exports = {
-    uploadFileToS3: function (localFilePath, remoteFilePath, callback){
+    uploadImageToS3: function (localFilePath, remoteFilePath, callback){
 
         fs.stat(localFilePath, function statCallback(err, stats) {
             if (err || !stats.isFile()) {

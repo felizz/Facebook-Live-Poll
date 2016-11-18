@@ -34,7 +34,7 @@ mUtils.execCommand(`mongodump -d ${databaseName} -o ${tmpDatabaseExportFolder}`,
         logger.info(`Successfully tar Directory ${tmpDatabaseExportFolder} to File ${tarFileName}`);
 
         // Upload tar file to S3 Backup folder
-        mUtils.uploadFileToS3(TMP_DIR + tarFileName, S3_BACKUP_DIR + tarFileName, function s3UploadCallback(err){
+        mUtils.uploadImageToS3(TMP_DIR + tarFileName, S3_BACKUP_DIR + tarFileName, function s3UploadCallback(err){
             if(err){
                 logger.error('Failed to upload database exported files to S3 ' + tarFileName);
                 logger.prettyError(err);
