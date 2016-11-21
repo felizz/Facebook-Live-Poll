@@ -11,6 +11,7 @@ var useragent = require('express-useragent');
 try{
 var routes = require('./routes/index');
 var poll = require('./routes/poll');
+var user = require('./routes/user');
 var app = express();
 
 require('./config/database-connect');
@@ -42,6 +43,7 @@ app.use(useragent.express());
 
 
 app.use('/', routes);
+app.use('/user', user);
 app.use('/api/v1/poll', poll);
 
 // catch 404 and forward to error handler
