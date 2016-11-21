@@ -12,6 +12,12 @@ var config = require('utils/config');
 
 module.exports = {
     renderHomePage: function (req, res) {
-        return res.render('home',{req: req});
+        if(req.session.user){
+            return res.render('home',{req: req});
+        }
+
+        else {
+            return res.render('landing',{req: req});
+        }
     }
 };
