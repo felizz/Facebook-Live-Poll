@@ -7,28 +7,26 @@ var logger = require('utils/logger');
 var Poll = require('../models/poll');
 var DatabaseError = require('infra/errors/database-error');
 var request = require('request');
-
+var POLL_LAYOUT = {
+  DEFAULT : 0,
+  FULL_SINGLE_BACKGROUND: 1
+};
 
 var servicePoll = {
-    createPoll : function (pollData, callback){
-        //Fixme Add owner Id here
+    POLL_LAYOUT : POLL_LAYOUT,
 
+    createFixedSizePoll : function (owner_id, layout, reactions, texts, images, callback){
         var newPoll = new Poll({
-            layout : pollData.layout,
-            reactions: pollData.reactions,
-            texts : pollData.texts,
-            background_images: pollData.background_images
-
+            owner_id: owner_id,
+            layout : layout,
+            reactions: reactions,
+            texts : texts,
+            images: images
         });
-
-        if(pollData.dimension){
-            newPoll.dimension = pollData.dimension;
-        }
 
         newPoll.save(function (err) {
             if (err) {
-                logger.prettyError(err);
-                return new DatabaseError('Error saving new images');
+                return callback(err);
             }
 
             logger.info('New poll successfully saved to database : ' + newPoll._id);

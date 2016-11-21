@@ -36,13 +36,15 @@ var poll = {
     handleCreatePoll: function (req, res) {
         logger.debug('Request Data = ' + JSON.stringify(req.body));
 
-        var pollData = {
-            layout : req.body.layout,
-            reactions: req.body.reactions
+        servicePoll.createFixedSizePoll(req.user._id, servicePoll.POLL_LAYOUT.DEFAULT, req.body.reactions, req.body.texts, req.body.images, function createPollCallback(err, poll){
 
-        };
+            if (err) {
+                logger.prettyError(err);
+                return apiErrors.UNPROCESSABLE_ENTITY.new('Error during processing file upload.').sendWith(res);
+            }
 
-        return res.status(statusCodes.OK).send({image_id : imageId});
+            return res.status(statusCodes.OK).send(poll);
+        });
     },
 
     handleUploadImage: function (req, res) {
