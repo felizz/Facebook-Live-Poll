@@ -20,7 +20,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 
-
+    <!--Goodle Analytics Script-->
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -32,16 +32,35 @@
 
     </script>
 
+    <!--Reaction Counter Script-->
+    <script type="text/javascript">
+        $(function() {
+            //Set Url of JSON data from the facebook graph api. make sure callback is set   with a '?' to overcome the cross domain problems with JSON
+            var url = "https://graph.facebook.com/tenniswarehouse?callback=?";
+
+            //Use jQuery getJSON method to fetch the data from the url and then create our unordered list with the relevant data.
+            $.getJSON(url,function(json){
+                var html = "<ul><li>" + json.likes + "</li></ul>";
+                //A little animation once fetched
+                $('.facebookfeed').animate({opacity:0}, 500, function(){
+                    $('.facebookfeed').html(html);
+                });
+                $('.facebookfeed').animate({opacity:1}, 500);
+            });
+        });
+    </script>
+
 </head>
 <link href="/html/css/home.css" rel="stylesheet" type="text/css"/>
 <body>
-<div id="wraper">
+<div class="facebookfeed">
+    <h2>Loading...</h2>
 </div>
-<script src="/js/home.js"></script>
-<script type="text/javascript">
-    var offset = 0;
-    $("document").ready(function () {
-    });
-</script>
+<!--<script src="/js/home.js"></script>-->
+<!--<script type="text/javascript">-->
+    <!--var offset = 0;-->
+    <!--$("document").ready(function () {-->
+    <!--});-->
+<!--</script>-->
 </body>
 </html>

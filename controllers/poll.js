@@ -36,38 +36,13 @@ var poll = {
     handleCreatePoll: function (req, res) {
         logger.debug('Request Data = ' + JSON.stringify(req.body));
 
-        //var errRes = apiErrors.INVALID_PARAMETERS.new();
-        //
-        ////Request Validation
-        //if(!validator.isURL(req.body.video_url)){
-        //    errRes.putError('video_url', errReason.INVALID_FORMAT);
-        //}
-        //
-        //if(!req.body.start_time || !validator.isNumeric(req.body.start_time.replace(/\./g, ""))){
-        //    errRes.putError('start_time', errReason.INVALID_FORMAT);
-        //}
-        //
-        //if(!req.body.duration || !validator.isNumeric(req.body.duration.replace(/\./g, ""))){
-        //    errRes.putError('duration', errReason.INVALID_FORMAT);
-        //}
-        //
-        //if (errRes.hasError()) {
-        //    return errRes.sendWith(res);
-        //}
-        //
-        //var startTime = parseInt(req.body.start_time), duration = parseInt(req.body.duration);
-        //
-        //if(duration <= 0 || duration > 15) {
-        //    errRes.putError('duration', errReason.OUT_OF_BOUND);
-        //}
-        //
-        //if (errRes.hasError()) {
-        //    return errRes.sendWith(res);
-        //}
-        //
-        //var imageId = shortid.generate();
-        //
-        //return res.status(statusCodes.OK).send({image_id : imageId});
+        var pollData = {
+            layout : req.body.layout,
+            reactions: req.body.reactions
+
+        };
+
+        return res.status(statusCodes.OK).send({image_id : imageId});
     },
 
     handleUploadImage: function (req, res) {
@@ -99,6 +74,23 @@ var poll = {
             }
 
             return res.render('poll-stream', {poll : poll,req: req});
+        });
+    },
+
+    getReactionsCount: function(req, res){
+        var pollId = req.params.poll_id;
+        if(!shortid.isValid(pollId)){
+            return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
+        }
+
+        //FIXME Caching here
+
+        servicePoll.getReactionsCountFromFacebook(pollId, function getPollCallback(err, countObject) {
+            if (err || !countObject) {
+                return apiErrors.INTERNAL_SERVER_ERROR.new().sendWith(res);
+            }
+
+            return res.status(statusCodes.OK).send(countObject);
         });
     }
 };
