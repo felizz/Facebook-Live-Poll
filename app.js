@@ -26,8 +26,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Configuring Passport
+var passport = require('passport');
 var session = require('express-session');
-app.use(session({secret: 'mySecretKey'}));
+app.use(session({secret: 'kyle-nguyen'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Initialize Passport
+var initPassport = require('./services/user/passport/init');
+initPassport(passport);
+
 
 //useragent
 app.use(useragent.express());

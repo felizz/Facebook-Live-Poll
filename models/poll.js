@@ -4,6 +4,8 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var shortid = require('shortid');
+
 
 var Poll = new Schema({
     _id : {type: String, index: true},
@@ -27,6 +29,16 @@ var Poll = new Schema({
     },
     created_at: {type: Date, default: Date.now},
     updated_at: {type: Date, default: Date.now}
+});
+
+Poll.pre('save', function (next){
+    var self = this;
+
+    if(this.isNew){
+        self._id = shortid.generate();
+    }
+
+    next();
 });
 
 module.exports = mongoose.model('Poll', Poll);

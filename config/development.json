@@ -1,14 +1,21 @@
 {
   "app_name": "facebook_live_poll",
   "log_level": "debug",
+  "web_prefix": "http://localhost:6565",
+
   "database": {
     "name": "facebook_live_poll"
   },
-  "web_prefix": "http://localhost:6565",
+
   "AWS" : {
     "api_key" : "AKIAJW4EAXPF5EGE2NPA",
     "api_secret": "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",
     "s3_bucket": "felizz-test",
     "web_endpoint": "https://s3-ap-southeast-1.amazonaws.com/felizz-test/"
+  },
+
+  "facebook" : {
+    "app_id" : "364032207283810",
+    "app_secret" : "235d24f4ccc9bd45adf860c6372772fc"
   }
 }

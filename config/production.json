@@ -1,14 +1,21 @@
 {
   "app_name": "facebook_live_poll",
   "log_level": "debug",
+  "web_prefix": "http://4wens.com",
+
   "database": {
     "name": "facebook_live_poll"
   },
-  "web_prefix": "http://4wens.com",
+
   "AWS" : {
     "api_key" : "AKIAJW4EAXPF5EGE2NPA",
     "api_secret": "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",
     "s3_bucket": "felizz-test",
     "web_endpoint": "https://s3-ap-southeast-1.amazonaws.com/felizz-test/"
+  },
+
+  "facebook" : {
+    "app_id" : "364028663950831",
+    "app_secret" : "a7a713baa292c10a3c9011651810cade"
   }
 }

@@ -4,7 +4,6 @@
 
 var config = require('utils/config');
 var logger = require('utils/logger');
-var shortid = require('shortid');
 var Poll = require('../models/poll');
 var DatabaseError = require('infra/errors/database-error');
 var request = require('request');
@@ -12,8 +11,9 @@ var request = require('request');
 
 var servicePoll = {
     createPoll : function (pollData, callback){
+        //Fixme Add owner Id here
+
         var newPoll = new Poll({
-            _id: shortid.generate(),
             layout : pollData.layout,
             reactions: pollData.reactions,
             texts : pollData.texts,
