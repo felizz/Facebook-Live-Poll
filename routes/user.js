@@ -5,12 +5,12 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var userController = require('../controllers/user');
+var controllerUser = require('../controllers/user');
 
-router.get('/login', userController.handleUserLogin);
+router.get('/logout', controllerUser.handleLogout);
 
-router.get('/logout', userController.handleLogout);
+router.get('/login', controllerUser.handleLoginWithFacebook);
 
-router.get('/login/facebook/callback', userController.handleloginFbCallback, userController.handlePostLogin);
+router.get('/login/facebook/callback', controllerUser.handleFacebookLoginCallback, controllerUser.handlePostLogin);
 
 module.exports = router;

@@ -12,7 +12,7 @@ var config = require('utils/config');
 
 module.exports = {
     renderHomePage: function (req, res) {
-        if(req.session.user){
+        if(req.user){
             return res.render('home',{req: req});
         }
 

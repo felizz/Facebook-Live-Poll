@@ -7,7 +7,6 @@ var Schema = mongoose.Schema;
 var shortid = require('shortid');
 
 var User = new Schema({
-
     _id: {type: String},
     fb_id: {type: String},
     fb_access_token: {type: String},

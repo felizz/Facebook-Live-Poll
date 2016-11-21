@@ -30,14 +30,13 @@ module.exports = function(passport) {
 	                return done(null, user); // user found, return that user
 	            } else {
 
-	                // if there is no user found with that facebook id, create them
-	                var newUser = new User();
-					// set all of the facebook information in our user model
-	                newUser.fb_id    = profile.id; // set the users facebook id
-					newUser.name  = profile.displayName;
-					newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
-					newUser.avatar = "https://graph.facebook.com/" + profile.id + "/picture";
-					newUser.fb_access_token = access_token;
+					var newUser = new User({
+						fb_id : profile.id,
+						name : profile.displayName,
+						email : profile.emails[0] ? profile.emails[0].value : null,
+						avatar : "https://graph.facebook.com/" + profile.id + "/picture",
+						fb_access_token : access_token
+					});
 
 					// save our user to the database
 	                newUser.save(function(err) {

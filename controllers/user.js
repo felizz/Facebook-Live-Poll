@@ -18,7 +18,8 @@ var user = {
         res.redirect('/');
     },
 
-    handleUserLogin: function (req, res, next) {
+
+    handleLoginWithFacebook: function (req, res, next) {
 
         var callbackURL = config.web_prefix + '/user/login/facebook/callback';
 
@@ -31,7 +32,7 @@ var user = {
         )(req, res, next);
     },
 
-    handleloginFbCallback: function (req, res, next) {
+    handleFacebookLoginCallback: function (req, res, next) {
 
         var callbackURL = config.web_prefix + '/user/login/facebook/callback';
 
