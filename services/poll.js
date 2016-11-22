@@ -7,6 +7,11 @@ var logger = require('utils/logger');
 var Poll = require('../models/poll');
 var DatabaseError = require('infra/errors/database-error');
 var request = require('request');
+var NodeCache = require('node-cache');
+var fbCache = new NodeCache();
+var CACHING_TTL = 4; //seconds
+
+
 var POLL_LAYOUT = {
   DEFAULT : 0,
   FULL_SINGLE_BACKGROUND: 1
@@ -53,37 +58,48 @@ var servicePoll = {
     },
 
     getReactionsCountFromFacebook: function(pollId, callback){
+
+        //Retrieve PostId and Access token for Facebook API request
         var fbPostId = '10155141000811840';
         var fbAccessToken = 'EAACEdEose0cBAE5SxdSTIyQNbjv42FOm16O0KM4q766ecZAo8YUmZAUHS3zuw7WCmk2Quw69P9koEtMXAqSjOQPSarWPoLSbkvbdFIfWSaOrDEEv3cZA9ddRYXLbX9uMVBTC3iB2UlGZBUDRnZBrKNlvIhjs0x2ZCLvOWyWoxuywZDZD';
         var FACEBOOK_REACTION_COUNT_REQUEST = `https://graph.facebook.com/v2.8?id=${fbPostId}&fields=reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry)&access_token=${fbAccessToken}`;
 
-        request.get(FACEBOOK_REACTION_COUNT_REQUEST,
-            function optionalCallback(err, httpResponse, body) {
-                if (err || httpResponse.statusCode !== 200) {
-                    logger.info('Failed to get reaction count for poll : ' + pollId );
-                    return callback(err);
-                }
-                else {
-                    logger.debug('successfully get reaction count from facebook for poll ' + pollId);
-                    var data = JSON.parse(body);
-                    logger.info("Data = " + JSON.stringify(data));
+        //Using Node Cache to ensure we doesn't pass Facebook API Request Limit
+        fbCache.get(pollId, function( err, cachedCountObject ){
+            if(err || !cachedCountObject){
 
-                    var countObject = {
-                        like : data.reactions_like.summary.total_count,
-                        love : data.reactions_love.summary.total_count,
-                        wow : data.reactions_wow.summary.total_count,
-                        haha : data.reactions_haha.summary.total_count,
-                        sad : data.reactions_sad.summary.total_count,
-                        angry : data.reactions_angry.summary.total_count
-                    };
+                request.get(FACEBOOK_REACTION_COUNT_REQUEST,
+                    function optionalCallback(err, httpResponse, body) {
+                        if (err || httpResponse.statusCode !== 200) {
+                            logger.info('Failed to get reaction count for poll : ' + pollId );
+                            return callback(err);
+                        }
+                        else {
+                            logger.debug('successfully get reaction count from facebook for poll ' + pollId);
+                            var data = JSON.parse(body);
+                            logger.info("Data = " + JSON.stringify(data));
 
-                    return callback(null, countObject);
-                }
-            });
+                            var countObject = {
+                                like : data.reactions_like.summary.total_count,
+                                love : data.reactions_love.summary.total_count,
+                                wow : data.reactions_wow.summary.total_count,
+                                haha : data.reactions_haha.summary.total_count,
+                                sad : data.reactions_sad.summary.total_count,
+                                angry : data.reactions_angry.summary.total_count
+                            };
 
+                            fbCache.set(pollId, countObject, CACHING_TTL);
+                            return callback(null, countObject);
+                        }
+                    });
 
+            }
+            else {
+                return callback(null, cachedCountObject);
+            }
+
+        });
     }
-    
 };
 
 module.exports = servicePoll;
