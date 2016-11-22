@@ -19,6 +19,11 @@ var multer  = require('multer');
 var passport = require('passport');
 var config = require('utils/config');
 
+var NodeCache = require('node-cache');
+var fbCache = new NodeCache();
+var CACHING_TTL = 4; //seconds
+
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, IMG_DIR);
@@ -64,6 +69,7 @@ var poll = {
     renderPollPage: function (req, res){
         var pollId = req.params.poll_id;
         if(!shortid.isValid(pollId)){
+            logger.prettyError(err);
             return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
         }
         servicePoll.getPollById(pollId, function getPollCallback(err, poll) {
@@ -87,6 +93,7 @@ var poll = {
         }
         servicePoll.getPollByStreamId(streamId, function getPollByStreamIdCallback(err, poll) {
             if (err) {
+                logger.prettyError(err);
                 return apiErrors.INTERNAL_SERVER_ERROR.new().sendWith(res);
             }
 
@@ -98,20 +105,57 @@ var poll = {
         });
     },
 
+    updateAdditionalInfo: function(req, res){
+        var pollId = req.params.poll_id;
+        if(!shortid.isValid(pollId)){
+            return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
+        }
+
+        servicePoll.getPollById(pollId, function getPollCallback(err, poll) {
+            if (err) {
+                logger.prettyError(err);
+                return apiErrors.INTERNAL_SERVER_ERROR.new().sendWith(res);
+            }
+
+            if(!poll){
+                return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
+            }
+
+            poll.fb_video_id = req.body.fb_video_id;
+            poll.fb_stream_key = req.body.fb_stream_key;
+            poll.save(function (err) {
+                if (err) {
+                    logger.prettyError(err);
+                    return apiErrors.INTERNAL_SERVER_ERROR.new().sendWith(res);
+                }
+
+                logger.info('Poll successfully updated : ' + poll._id);
+                return res.status(statusCodes.OK).send(poll);
+            });
+        });
+    },
+
     getReactionsCount: function(req, res){
         var pollId = req.params.poll_id;
         if(!shortid.isValid(pollId)){
             return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
         }
 
-        //FIXME Caching here
+        //Using Node Cache to ensure we doesn't pass Facebook API Request Limit
+        fbCache.get(pollId, function (err, cachedCountObject) {
+            if (err || !cachedCountObject) {
+                servicePoll.getReactionsCountFromFacebook(pollId, function getPollCallback(err, countObject) {
+                    if (err || !countObject) {
+                        return apiErrors.INTERNAL_SERVER_ERROR.new().sendWith(res);
+                    }
 
-        servicePoll.getReactionsCountFromFacebook(pollId, function getPollCallback(err, countObject) {
-            if (err || !countObject) {
-                return apiErrors.INTERNAL_SERVER_ERROR.new().sendWith(res);
+                    fbCache.set(pollId, countObject, CACHING_TTL);
+                    return res.status(statusCodes.OK).send(countObject);
+                });
             }
-
-            return res.status(statusCodes.OK).send(countObject);
+            else{
+                return res.status(statusCodes.OK).send(cachedCountObject);
+            }
         });
     }
 };
