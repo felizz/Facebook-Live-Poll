@@ -10,8 +10,6 @@ router.post('/create', controllerPoll.handleCreatePoll);
 
 router.post('/upload-image', controllerPoll.handleUploadImage);
 
-router.get('/:poll_id/stream', controllerPoll.renderPollStreamPage);
-
 router.get('/:poll_id/reactions-count', controllerPoll.getReactionsCount);
 
 module.exports = router;

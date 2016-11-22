@@ -43,6 +43,15 @@ var servicePoll = {
         });
     },
 
+    getPollByStreamId: function (streamId, callback){
+        Poll.findOne({stream_id: streamId}, function (err, poll) {
+            if (err) {
+                return callback(new DatabaseError(`Poll Id ${streamId} not found in database`));
+            }
+            return callback(null, poll);
+        });
+    },
+
     getReactionsCountFromFacebook: function(pollId, callback){
         var fbPostId = '10155141000811840';
         var fbAccessToken = 'EAACEdEose0cBAE5SxdSTIyQNbjv42FOm16O0KM4q766ecZAo8YUmZAUHS3zuw7WCmk2Quw69P9koEtMXAqSjOQPSarWPoLSbkvbdFIfWSaOrDEEv3cZA9ddRYXLbX9uMVBTC3iB2UlGZBUDRnZBrKNlvIhjs0x2ZCLvOWyWoxuywZDZD';

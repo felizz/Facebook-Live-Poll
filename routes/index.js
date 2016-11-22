@@ -1,8 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var indexController = require('../controllers/index');
+var controllerIndex = require('../controllers/index');
+var controllerPoll = require('../controllers/poll');
 
-router.get('/', indexController.renderHomePage);
+router.get('/', controllerIndex.renderHomePage);
+
+router.get('/poll/:poll_id', controllerPoll.renderPollPage);
+
+router.get('/stream/:stream_id', controllerPoll.renderStreamPage);
 
 module.exports = router;
 

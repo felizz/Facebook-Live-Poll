@@ -61,7 +61,7 @@ var poll = {
         });
     },
 
-    renderPollStreamPage: function (req, res){
+    renderPollPage: function (req, res){
         var pollId = req.params.poll_id;
         if(!shortid.isValid(pollId)){
             return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
@@ -75,7 +75,26 @@ var poll = {
                 return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
             }
 
-            return res.render('poll-stream', {poll : poll,req: req});
+            return res.render('poll', {poll : poll,req: req});
+        });
+    },
+
+
+    renderStreamPage: function (req, res){
+        var streamId = req.params.stream_id;
+        if(!shortid.isValid(streamId)){
+            return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
+        }
+        servicePoll.getPollByStreamId(streamId, function getPollByStreamIdCallback(err, poll) {
+            if (err) {
+                return apiErrors.INTERNAL_SERVER_ERROR.new().sendWith(res);
+            }
+
+            if(!poll){
+                return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
+            }
+
+            return res.render('stream', {poll : poll,req: req});
         });
     },
 

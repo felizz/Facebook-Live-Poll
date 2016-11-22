@@ -10,6 +10,7 @@ var shortid = require('shortid');
 var Poll = new Schema({
     _id : {type: String, index: true},
     owner_id: {type: String},
+    stream_id: {type: String},
 
     layout: {type: Number, default: 1}, //servicePoll.POLL_LAYOUT
     reactions: [{type: String}],
@@ -25,6 +26,7 @@ Poll.pre('save', function (next){
 
     if(this.isNew){
         self._id = shortid.generate();
+        self.stream_id = shortid.generate();
     }
 
     next();

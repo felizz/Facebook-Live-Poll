@@ -13,7 +13,7 @@ var config = require('utils/config');
 module.exports = {
     renderHomePage: function (req, res) {
         if(req.user){
-            return res.render('home',{req: req});
+            return res.render('editor',{req: req});
         }
 
         else {
