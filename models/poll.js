@@ -17,6 +17,9 @@ var Poll = new Schema({
     texts : [{type: String}],
     images: [{type: String}],
 
+    fb_video_id: {type: String},
+    fb_stream_key: {type: String},
+
     created_at: {type: Date, default: Date.now},
     updated_at: {type: Date, default: Date.now}
 });
