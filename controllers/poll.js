@@ -121,6 +121,10 @@ var poll = {
                 return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
             }
 
+            if (poll.owner_id != req.user._id){
+                return apiErrors.INSUFFICIENT_PRIVILEGES.new('Not allowed to change other user content').sendWith(res);
+            }
+
             poll.fb_video_id = req.body.fb_video_id;
             poll.fb_stream_key = req.body.fb_stream_key;
             poll.save(function (err) {
