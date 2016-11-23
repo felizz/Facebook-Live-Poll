@@ -41,7 +41,33 @@ var poll = {
     handleCreatePoll: function (req, res) {
         logger.debug('Request Data = ' + JSON.stringify(req.body));
 
-        servicePoll.createFixedSizePoll(req.user._id, servicePoll.POLL_LAYOUT.DEFAULT, req.body.reactions, req.body.texts, req.body.images, function createPollCallback(err, poll){
+        //Request Validation
+        var errRes = apiErrors.INVALID_PARAMETERS.new();
+
+        if(req.body.layout && !validator.isNumeric(req.body.layout)){
+            errRes.putError('layout', errReason.INVALID_FORMAT);
+        }
+
+        if(!req.body.reactions || !(req.body.reactions.length > 0)){
+            errRes.putError('reactions', errReason.INVALID_FORMAT);
+        }
+
+        if(!req.body.texts || !(req.body.texts.length > 0)){
+            errRes.putError('texts', errReason.INVALID_FORMAT);
+        }
+
+        if(!req.body.images || !(req.body.images.length > 0)){
+            errRes.putError('images', errReason.INVALID_FORMAT);
+        }
+
+        if (errRes.hasError()) {
+            return errRes.sendWith(res);
+        }
+
+        var owner_id = req.isAuthenticated() ? req.user._id : 'SySwjlXzl';  //Fixme for testing purpose
+        var layout = req.body.layout ?  parseInt(req.body.layout) : servicePoll.POLL_LAYOUT.DEFAULT;
+
+        servicePoll.createFixedSizePoll(owner_id, layout, req.body.reactions, req.body.texts, req.body.images, function createPollCallback(err, poll){
 
             if (err) {
                 logger.prettyError(err);
@@ -111,6 +137,17 @@ var poll = {
             return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
         }
 
+        //Request Validation
+        var errRes = apiErrors.INVALID_PARAMETERS.new();
+
+        if(req.body.fb_video_id && !validator.isNumeric(req.body.fb_video_id)){
+            errRes.putError('fb_video_id', errReason.INVALID_FORMAT);
+        }
+
+        if (errRes.hasError()) {
+            return errRes.sendWith(res);
+        }
+
         servicePoll.getPollById(pollId, function getPollCallback(err, poll) {
             if (err) {
                 logger.prettyError(err);
@@ -121,12 +158,19 @@ var poll = {
                 return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
             }
 
-            if (poll.owner_id != req.user._id){
-                return apiErrors.INSUFFICIENT_PRIVILEGES.new('Not allowed to change other user content').sendWith(res);
+            //Fixme enable this when we not testing anymore
+            //if (poll.owner_id != req.user._id){
+            //    return apiErrors.INSUFFICIENT_PRIVILEGES.new().sendWith(res);
+            //}
+
+            if(req.body.fb_video_id){
+                poll.fb_video_id = req.body.fb_video_id;
             }
 
-            poll.fb_video_id = req.body.fb_video_id;
-            poll.fb_stream_key = req.body.fb_stream_key;
+            if(req.body.fb_stream_key){
+                poll.fb_stream_key = req.body.fb_stream_key;
+            }
+
             poll.save(function (err) {
                 if (err) {
                     logger.prettyError(err);

@@ -12,7 +12,7 @@ var Poll = new Schema({
     owner_id: {type: String},
     stream_id: {type: String},
 
-    layout: {type: Number, default: 1}, //servicePoll.POLL_LAYOUT
+    layout: {type: Number}, //servicePoll.POLL_LAYOUT
     reactions: [{type: String}],
     texts : [{type: String}],
     images: [{type: String}],
