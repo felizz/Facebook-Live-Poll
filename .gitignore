@@ -8,3 +8,7 @@ logs/*
 npm-debug.log
 public/*
 !public/assets/
+client/vendors/*
+!client/vendors/swig/browser/swig.js
+
+.bower
