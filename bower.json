@@ -1,0 +1,43 @@
+{
+  "name": "Seanote",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "knightus <coldkiller131@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "source/vendors",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootbox.js": "~4.4.0",
+    "bootstrap": "^3.3.6",
+    "bows": "^1.6.0",
+    "jquery": "^1.12.4",
+    "multiline": "^1.0.2",
+    "scaleapp": "~0.4.3",
+    "swig": "^1.4.2",
+    "urijs": "^1.18.2",
+    "ua-parser-js": "^0.7.11"
+  },
+  "overrides": {
+    "scaleapp": {
+      "main": [
+        "dist/scaleApp.js",
+        "plugins/src/scaleApp.ls.js",
+        "plugins/src/scaleApp.submodule.js",
+        "plugins/src/scaleApp.util.js"
+      ]
+    },
+    "swig": {
+      "main": "./browser/swig.js"
+    }
+  }
+}
