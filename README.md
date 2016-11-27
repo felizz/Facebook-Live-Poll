@@ -9,20 +9,20 @@ This repo is the main server & frontend for website devleopment of FacebookLiveP
 
 ### How do I get set up? ###
 
-1. Clone the repo from your local fork
+* Clone the repo from your local fork
 
 git clone git@github.com:your_username/Facebook-Live-Poll.git
 
-2. Go to Repo Directory 
+* Go to Repo Directory 
 
 cd Facebook-Live-Poll  
 
-3. Install Dependencies (make sure node, npm and bower is available at default environment)
+* Install Dependencies (make sure node, npm and bower is available at default environment)
 
 npm install  
 bower install (will trigger task gulp scripts:vendors:compile as postinstall job)    
 
-4. Start the server 
+* Start the server 
 
 npm run webpack    
 npm start   
