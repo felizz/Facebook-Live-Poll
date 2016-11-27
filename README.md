@@ -15,15 +15,15 @@ This repo is the main server & frontend for website devleopment of FacebookLiveP
 
 3. Install Dependencies (make sure node, npm and bower is available at default environment)
 
-npm install 
-bower install (will trigger task gulp scripts:vendors:compile as postinstall job)
+- npm install 
+- bower install (will trigger task gulp scripts:vendors:compile as postinstall job)
 
 4. Start the server 
 
-npm run webpack
-npm start
+- npm run webpack
+- npm start
 
-The server is running by default at localhost:6565
+The server is running by default at http://localhost:6565
 
 ### Contribution guidelines ###
 
