@@ -1,11 +1,11 @@
-# Seanote Development #
+# FacebooLivePoll Development #
 
-This project based on Express JS. The setup is by default in Express JS. This project make use of EJS as View Engine
+This project based on Express JS. The setup is by default in Express JS.
 
 
 ### What is this repository for? ###
 
-This repo is the main server & frontend for website devleopment of Seanote
+This repo is the main server & frontend for website devleopment of FacebookLivePoll project
 
 ### How do I get set up? ###
 
@@ -13,17 +13,23 @@ This repo is the main server & frontend for website devleopment of Seanote
 
 2. Go to Repo Directory : cd Seanote
 
-3. Install Dependencies : npm install (make sure node & npm is available at default environment)
+3. Install Dependencies (make sure node, npm and bower is available at default environment)
 
-4. Start the server : npm start 
+npm install 
+bower install (will trigger task gulp scripts:vendors:compile as postinstall job)
 
-The server is running by default at localhost:3000
+4. Start the server 
+
+npm run webpack
+npm start
+
+The server is running by default at localhost:6565
 
 ### Contribution guidelines ###
 
 * Using pull request for contribution to project so that other can review your changes as well
 * Keep PR small & reviewable
-* Never Copy-and-Paste code
+* Do review all Copy-and-Paste code. Never assume that they work as expected
 * Stick to Code Convention
 * Do have unit test case for your complicated implementation of biz logics.
 
