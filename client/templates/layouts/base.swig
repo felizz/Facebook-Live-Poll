@@ -16,5 +16,6 @@
 
 {% block footer %}{% include '../modules/footer.swig' %}{% endblock %}
 
+<script src='./../../scripts/vendors.js'></script>
 </body>
 </html>

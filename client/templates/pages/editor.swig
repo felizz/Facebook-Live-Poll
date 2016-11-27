@@ -56,11 +56,11 @@
                                 </div>
                                 <div class="layer controls">
                                     <textarea class="object question" placeholder="Enter your question here..."></textarea>
-                                    <div class="object image-trigger" data-trigger-object="background"></div>
-                                    <div class="object image-trigger" data-trigger-object="image-1"></div>
-                                    <div class="object image-trigger" data-trigger-object="image-2"></div>
-                                    <div class="object reaction-trigger" data-trigger-object="reaction-1"></div>
-                                    <div class="object reaction-trigger" data-trigger-object="reaction-2"></div>
+                                    <div class="object trigger image-trigger" data-trigger-object="background"></div>
+                                    <div class="object trigger image-trigger" data-trigger-object="image-1"></div>
+                                    <div class="object trigger image-trigger" data-trigger-object="image-2"></div>
+                                    <div class="object trigger reaction-trigger" data-trigger-object="reaction-1"></div>
+                                    <div class="object trigger reaction-trigger" data-trigger-object="reaction-2"></div>
 
                                     <div class="object reactions-list" data-target-object="reaction-1">
                                         <div class="item" data-reaction-value="like"></div>
