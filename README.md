@@ -9,21 +9,25 @@ This repo is the main server & frontend for website devleopment of FacebookLiveP
 
 ### How do I get set up? ###
 
-1. Clone the repo : git clone git@github.com:felizz/Seanote.git
+1. Clone the repo 
 
-2. Go to Repo Directory : cd Seanote
+- git clone git@github.com:felizz/Seanote.git
+
+2. Go to Repo Directory 
+
+- cd Seanote
 
 3. Install Dependencies (make sure node, npm and bower is available at default environment)
 
 - npm install 
-- bower install (will trigger task gulp scripts:vendors:compile as postinstall job)
+- bower install (will trigger task gulp scripts:vendors:compile as postinstall job)   
 
 4. Start the server 
 
-- npm run webpack
-- npm start
+- npm run webpack  
+- npm start  
 
-The server is running by default at http://localhost:6565
+The server is running by default at http://localhost:6565  
 
 ### Contribution guidelines ###
 
