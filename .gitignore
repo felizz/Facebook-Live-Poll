@@ -8,8 +8,10 @@ logs/*
 npm-debug.log
 public/*
 !public/assets/
-client/vendors/*
+client/vendors/**/*
 !client/vendors/swig/browser/swig.js
+!client/vendors/scaleapp/dist/scaleApp.js
+!client/vendors/scaleapp/plugins/src/*.js
+
 
 .bower
-client/scripts/vendors.js
