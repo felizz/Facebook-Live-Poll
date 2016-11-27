@@ -12,3 +12,4 @@ client/vendors/*
 !client/vendors/swig/browser/swig.js
 
 .bower
+client/scripts/vendors.js
