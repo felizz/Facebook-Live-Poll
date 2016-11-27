@@ -1,4 +1,4 @@
-var sandbox = function(core, instanceId, options, moduleId) {
+module.exports = function(core, instanceId, options, moduleId) {
 
     // define your API
     this.namespace = "manadr";
@@ -21,5 +21,3 @@ var sandbox = function(core, instanceId, options, moduleId) {
 
     return this;
 };
-
-module.exports = sandbox;

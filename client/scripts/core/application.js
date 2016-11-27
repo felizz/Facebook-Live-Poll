@@ -1,15 +1,15 @@
-var manaDrSandbox = require('./../core/sandbox'),
-    manaDrApplication = new scaleApp.Core(manaDrSandbox)
+var sandbox = require('./../core/sandbox'),
+    application = new scaleApp.Core(sandbox)
 ;
 
-manaDrApplication.use(scaleApp.plugins.ls);
-manaDrApplication.use(scaleApp.plugins.util);
-manaDrApplication.use(scaleApp.plugins.submodule, {
+application.use(scaleApp.plugins.ls);
+application.use(scaleApp.plugins.util);
+application.use(scaleApp.plugins.submodule, {
     inherit: true,             // use all plugins from the parent's Core
     use: ['ls','submodule', 'util'],        // use some additional plugins
     useGlobalMediator: true   // emit and receive all events from the parent's Core
 });
 
-manaDrApplication.userAgent = new UAParser();
+application.userAgent = new UAParser();
 
-module.exports = manaDrApplication;
+module.exports = application;
