@@ -11,20 +11,20 @@ This repo is the main server & frontend for website devleopment of FacebookLiveP
 
 This guide assume mongodb server is setup and running on localhost.
 
-* Clone the repo from your local fork
+**Clone the repo from your local fork**
 
 `git clone git@github.com:your_username/Facebook-Live-Poll.git`
 
-* Go to Repo Directory 
+**Go to Repo Directory**
 
 `cd Facebook-Live-Poll` 
 
-* Install Dependencies (make sure node, npm and bower is available at default environment)
+**Install Dependencies (make sure node, npm and bower is available at default environment)**
 
 `npm install`  
 `bower install (will trigger task gulp scripts:vendors:compile as postinstall job)`    
 
-* Start the server 
+**Start the server**
 
 `npm run webpack`    
 `npm start`   
