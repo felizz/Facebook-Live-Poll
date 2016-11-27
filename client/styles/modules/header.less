@@ -1,0 +1,39 @@
+#header{
+  .clearfix;
+  background-color: #008efe;
+  height: 56px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+
+  #header__logo{
+    .pull-left;
+
+    display: inline-block;
+    height: 56px;
+    width: 56px;
+
+    background-repeat: no-repeat;
+    background-image: url('@{image-uri-base}/logo.png');
+    background-position: center center;
+  }
+
+  #header__menu_left{
+    .pull-left;
+
+    >.item{
+      .pull-left;
+      display: inline-block;
+      color: #FFFFFF;
+
+      .text-medium;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 56px;
+      text-transform: uppercase;
+
+      text-decoration: none;
+      cursor: pointer;
+
+      padding: 0 25px;
+    }
+  }
+}

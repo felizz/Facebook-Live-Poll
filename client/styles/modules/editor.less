@@ -1,0 +1,390 @@
+.@{namespace}.editor{
+  >.container{
+    max-width: 950px;
+
+    >.row{
+      >.menu-container{
+        .make-md-column(4);
+
+        >.menu{
+          background-color: #fcfcfc;
+          border: 1px solid #dfe6eb;
+          border-radius: 3px;
+
+          >.layouts{
+
+            >.header{
+              height: 50px;
+              padding: 15px 20px;
+              line-height: 20px;
+            }
+            >.body{
+
+              >.list{
+                .clearfix;
+
+                >.item{
+                  &{
+                    .make-sm-column(6);
+
+                    margin-bottom: 15px;
+                    cursor: pointer;
+
+                    >.@{namespace}.card.style1{
+                      background-color: white;
+                      border: 1px solid #e0e7f0;
+                      border-radius: 2px;
+                      height: 88px;
+                      width: 120px;
+                      padding: 7px;
+                      margin: 0 auto;
+
+                      .text-center;
+
+                      background-repeat: no-repeat;
+                      background-position: center center;
+
+                    }
+                  }
+
+                  &:hover{
+                    opacity: 0.85;
+                  }
+
+                  &.active,
+                  &:hover{
+                    .@{namespace}.card.style1{
+                      background-color: #008efe;
+                      border-color: #008efe;
+                    }
+                  }
+                }
+
+                >.item{
+                  &{
+                    &[data-id="1"]{
+                      >.@{namespace}.card.style1{
+                        background-image: url('@{image-uri-base}/modules/editor/layouts.layout-1.thumbnail.png');
+                      }
+                    }
+
+                    &[data-id="2"]{
+                      >.@{namespace}.card.style1{
+                        background-image: url('@{image-uri-base}/modules/editor/layouts.layout-2.thumbnail.png');
+                      }
+                    }
+                  }
+
+                  &.active,
+                  &:hover{
+                    &[data-id="1"]{
+                      >.@{namespace}.card.style1{
+                        background-image: url('@{image-uri-base}/modules/editor/layouts.layout-1.active.thumbnail.png');
+                      }
+                    }
+
+                    &[data-id="2"]{
+                      >.@{namespace}.card.style1{
+                        background-image: url('@{image-uri-base}/modules/editor/layouts.layout-2.active.thumbnail.png');
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      >.stage-container{
+        .make-md-column(8);
+
+        >.stage{
+          background-color: #fcfcfc;
+          border: 1px solid #dfe6eb;
+          border-radius: 3px;
+
+          >.header{
+            .clearfix;
+            height: 50px;
+            line-height: 50px;
+
+            >.menu{
+              .pull-right;
+
+              >.item{
+                display: inline-block;
+                opacity: 0.3;
+                color: #505965;
+                font-family: "Gotham Rounded Medium";
+                font-size: 15px;
+                font-weight: 500;
+                letter-spacing: 0.83px;
+
+                padding: 0 15px;
+
+                text-decoration: none;
+                .text-uppercase;
+
+                cursor: pointer;
+
+                -webkit-transition: 0.3s all;
+                -moz-transition: 0.3s all;
+                -ms-transition: 0.3s all;
+                -o-transition: 0.3s all;
+                transition: 0.3s all;
+
+                &:hover{
+                  opacity: 1;
+                }
+              }
+            }
+          }
+          >.body{
+            .@{namespace}.card{
+              &{
+                width: 600px;
+                height: 382px;
+                margin: 0 auto;
+
+                position: relative;
+
+                >.layer{
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  bottom: 0;
+                  left: 0;
+
+                  .object{
+                    position: absolute;
+                  }
+                }
+              }
+
+              &[data-layout-id="2"]{
+                >.layer{
+                  &.images{
+                    >.object{
+                      &.background{
+                        top: 0;
+                        right: 0;
+                        left: 0;
+                        bottom: 0;
+
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-image: url('@{image-uri-base}/demo/modules/editor/background.png');
+                      }
+
+                      &.image-1{
+                        width: 140px;
+                        height: 140px;
+                        top: 151px;
+                        left: 73px;
+
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-image: url('@{image-uri-base}/demo/modules/editor/image.png');
+                      }
+
+                      &.image-2{
+                        width: 140px;
+                        height: 140px;
+                        top: 151px;
+                        left: 376px;
+
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-image: url('@{image-uri-base}/demo/modules/editor/image.png');
+                      }
+
+                      &.reaction{
+                        &{
+                          background-repeat: no-repeat;
+                          background-position: center center;
+                        }
+                        &[data-reaction-value="haha"]{background-image: url('@{image-uri-base}/icons/reaction-haha.png');}
+                        &[data-reaction-value="like"]{background-image: url('@{image-uri-base}/icons/reaction-like.png');}
+                        &[data-reaction-value="angry"]{background-image: url('@{image-uri-base}/icons/reaction-angry.png');}
+                        &[data-reaction-value="love"]{background-image: url('@{image-uri-base}/icons/reaction-love.png');}
+                        &[data-reaction-value="sad"]{background-image: url('@{image-uri-base}/icons/reaction-sad.png');}
+                        &[data-reaction-value="wow"]{background-image: url('@{image-uri-base}/icons/reaction-wow.png');}
+
+                      }
+
+                      &.reaction-1{
+                        width: 44px;
+                        height: 44px;
+                        top: 309px;
+                        left: 127px;
+                      }
+
+                      &.reaction-2{
+                        width: 44px;
+                        height: 44px;
+                        top: 309px;
+                        left: 429px;
+                      }
+                    }
+                  }
+
+                  &.controls{
+                    >.object{
+                      &.question{
+                        top: 27px;
+                        left: 0;
+                        right: 0;
+                        width: 515px;
+                        height: 60px;
+                        margin: 0 auto;
+
+                        background-color: rgba(0, 0, 0, 0.5);
+                        border: 1px solid white;
+                        border-radius: 2px;
+
+                        .text-center;
+
+                        color: #FFFFFF;
+                        padding: 10px 20px;
+                        line-height: 20px;
+
+                        resize: none;
+
+                        .text-medium;
+                        font-size: 16px;
+                        font-weight: 500;
+                      }
+
+                      &.image-trigger{
+                        &{
+                          background-repeat: no-repeat;
+                          background-position: center center;
+                          cursor: pointer;
+                        }
+
+                        &:hover{
+                          border-color: #FFFFFF;
+                          background-color: rgba(0, 0, 0, 0.5);
+                          background-image: url('@{image-uri-base}/modules/editor/image-edit.png');
+                        }
+
+                        &[data-trigger-object="background"]{
+                          width: 35px;
+                          height: 35px;
+                          top: 312px;
+                          left: 295px;
+                          background-image: url('@{image-uri-base}/modules/editor/image-edit.png');
+
+                          &:hover {
+                            border-color: transparent;
+                            background-color: transparent;
+                            opacity: 0.85;
+                          }
+                        }
+
+                        &[data-trigger-object="image-1"]{
+                          width: 140px;
+                          height: 140px;
+                          top: 151px;
+                          left: 73px;
+
+                          border: 1px solid transparent;
+                          border-radius: 4px;
+                        }
+
+                        &[data-trigger-object="image-2"]{
+                          width: 140px;
+                          height: 140px;
+                          top: 151px;
+                          left: 376px;
+
+                          border: 1px solid white;
+                          border-radius: 4px;
+                        }
+                      }
+
+                      &.reaction-trigger{
+                        &{
+                          width: 44px;
+                          height: 44px;
+
+                          cursor: pointer;
+                        }
+                        &:hover{
+
+                        }
+                        &[data-trigger-object="reaction-1"]{
+                          top: 309px;
+                          left: 127px;
+                        }
+                        &[data-trigger-object="reaction-2"]{
+                          top: 309px;
+                          left: 429px;
+                        }
+                      }
+
+                      &.reactions-list{
+                        & {
+                          padding: 8px;
+                          line-height: 0;
+
+                          top: 240px;
+                          margin-left: -138px;
+
+                          background-color: #FFFFFF;
+                          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                          border: 1px solid #e1e1e1;
+                          border-radius: 100px;
+
+                          display: none;
+
+                          >.item{
+                            &{
+                              display: inline-block;
+                              width: 40px;
+                              height: 40px;
+
+                              cursor: pointer;
+
+                              background-repeat: no-repeat;
+                              background-position: center center;
+                            }
+
+                            &:hover{
+                              opacity: 0.85;
+                            }
+
+                            &[data-reaction-value="haha"]{background-image: url('@{image-uri-base}/icons/reaction-haha.png');}
+                            &[data-reaction-value="like"]{background-image: url('@{image-uri-base}/icons/reaction-like.png');}
+                            &[data-reaction-value="angry"]{background-image: url('@{image-uri-base}/icons/reaction-angry.png');}
+                            &[data-reaction-value="love"]{background-image: url('@{image-uri-base}/icons/reaction-love.png');}
+                            &[data-reaction-value="sad"]{background-image: url('@{image-uri-base}/icons/reaction-sad.png');}
+                            &[data-reaction-value="wow"]{background-image: url('@{image-uri-base}/icons/reaction-wow.png');}
+
+                          }
+                        }
+
+                        &.active {
+                          display: block;
+                        }
+
+                        &[data-target-object="reaction-1"]{
+                          left: 149px;
+                        }
+
+                        &[data-target-object="reaction-2"]{
+                          left: 451px;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

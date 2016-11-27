@@ -1,0 +1,17 @@
+{
+  "paths": {
+    "relative": {
+      "source": "client",
+      "sourceImages": "client/images",
+      "sourceFonts": "client/fonts",
+      "sourceScripts": "client/scripts",
+      "sourceStyles": "client/styles",
+      "sourceData": "client/data",
+      "build": "public",
+      "buildImages": "public/images",
+      "buildFonts": "public/fonts",
+      "buildScripts": "public/scripts",
+      "buildStyles": "public/styles"
+    }
+  }
+}
