@@ -11,7 +11,7 @@
 </div>
 
 <div class="body">
-    <div class="sn editor" data-layout-id="1">
+    <div class="sn editable editor" data-layout-id="1">
         <div class="container">
             <div class="row">
                 <div class="menu-container">
