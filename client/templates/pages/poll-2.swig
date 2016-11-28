@@ -74,6 +74,8 @@
                     </div>
                 </div>
             </div>
+
+            {% include '../modules/segment-instructions.swig' %}
         </div>
     </div>
 </div>
