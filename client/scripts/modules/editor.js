@@ -86,65 +86,95 @@ module.exports = function(sandbox){
     }
 
     _this.handleUploaders = () => {
-        _this.objects.$container.find(_this.DOMSelectors.background).dropzone({
-            acceptedFiles: '.jpg, .jpeg, .png',
-            thumbnailWidth: 600,
-            thumbnailHeight: 382,
-            paramName: 'background',
-            previewsContainer: false,
-            url: '/',
-            autoProcessQueue: true,
-            clickable: _this.objects.$container.find(_this.DOMSelectors.triggerBackground)[0],
-            thumbnail: (file, dataUrl) => {
-                _this.objects.$container.find(_this.DOMSelectors.background).css({
-                    backgroundImage: 'url('+ dataUrl + ')'
-                })
-            }
-        });
-
-        _this.objects.$container.find(_this.DOMSelectors.image1).dropzone({
-            acceptedFiles: '.jpg, .jpeg, .png',
-            thumbnailWidth: 140,
-            thumbnailHeight: 140,
-            paramName: 'image1',
-            previewsContainer: false,
-            url: '/',
-            autoProcessQueue: true,
-            clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage1)[0],
-            thumbnail: (file, dataUrl) => {
-                _this.objects.$container.find(_this.DOMSelectors.image1).css({
-                    backgroundImage: 'url('+ dataUrl + ')'
+        switch(_this.data.currentLayoutId){
+            case 1:
+                _this.objects.$container.find(_this.DOMSelectors.background).dropzone({
+                    acceptedFiles: '.jpg, .jpeg, .png',
+                    thumbnailWidth: 600,
+                    thumbnailHeight: 382,
+                    paramName: 'background',
+                    previewsContainer: false,
+                    url: '/',
+                    autoProcessQueue: true,
+                    clickable: _this.objects.$container.find(_this.DOMSelectors.triggerBackground)[0],
+                    thumbnail: (file, dataUrl) => {
+                        _this.objects.$container.find(_this.DOMSelectors.background).css({
+                            backgroundImage: 'url('+ dataUrl + ')'
+                        })
+                    }
                 });
-            }
-        });
-
-        _this.objects.$container.find(_this.DOMSelectors.image2).dropzone({
-            acceptedFiles: '.jpg, .jpeg, .png',
-            thumbnailWidth: 140,
-            thumbnailHeight: 140,
-            paramName: 'image2',
-            previewsContainer: false,
-            url: '/',
-            autoProcessQueue: true,
-            clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage2)[0],
-            thumbnail: (file, dataUrl) => {
-                _this.objects.$container.find(_this.DOMSelectors.image2).css({
-                    backgroundImage: 'url('+ dataUrl + ')'
+                _this.objects.$container.find(_this.DOMSelectors.image1).dropzone({
+                    acceptedFiles: '.jpg, .jpeg, .png',
+                    thumbnailWidth: 140,
+                    thumbnailHeight: 140,
+                    paramName: 'image1',
+                    previewsContainer: false,
+                    url: '/',
+                    autoProcessQueue: true,
+                    clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage1)[0],
+                    thumbnail: (file, dataUrl) => {
+                        _this.objects.$container.find(_this.DOMSelectors.image1).css({
+                            backgroundImage: 'url('+ dataUrl + ')'
+                        });
+                    }
                 });
-            }
-        });
-    }
-
-    _this.removeUploaders = () => {
-        
+                _this.objects.$container.find(_this.DOMSelectors.image2).dropzone({
+                    acceptedFiles: '.jpg, .jpeg, .png',
+                    thumbnailWidth: 140,
+                    thumbnailHeight: 140,
+                    paramName: 'image2',
+                    previewsContainer: false,
+                    url: '/',
+                    autoProcessQueue: true,
+                    clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage2)[0],
+                    thumbnail: (file, dataUrl) => {
+                        _this.objects.$container.find(_this.DOMSelectors.image2).css({
+                            backgroundImage: 'url('+ dataUrl + ')'
+                        });
+                    }
+                });
+                break;
+            case 2:
+                _this.objects.$container.find(_this.DOMSelectors.image1).dropzone({
+                    acceptedFiles: '.jpg, .jpeg, .png',
+                    thumbnailWidth: 140,
+                    thumbnailHeight: 140,
+                    paramName: 'image1',
+                    previewsContainer: false,
+                    url: '/',
+                    autoProcessQueue: true,
+                    clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage1)[0],
+                    thumbnail: (file, dataUrl) => {
+                        _this.objects.$container.find(_this.DOMSelectors.image1).css({
+                            backgroundImage: 'url('+ dataUrl + ')'
+                        });
+                    }
+                });
+                _this.objects.$container.find(_this.DOMSelectors.image2).dropzone({
+                    acceptedFiles: '.jpg, .jpeg, .png',
+                    thumbnailWidth: 140,
+                    thumbnailHeight: 140,
+                    paramName: 'image2',
+                    previewsContainer: false,
+                    url: '/',
+                    autoProcessQueue: true,
+                    clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage2)[0],
+                    thumbnail: (file, dataUrl) => {
+                        _this.objects.$container.find(_this.DOMSelectors.image2).css({
+                            backgroundImage: 'url('+ dataUrl + ')'
+                        });
+                    }
+                });
+                break;
+        }
     }
 
     _this.switchLayout = (layoutId) => {
         _this.removeStageEvents();
-
         _this.removeLayout();
         _this.renderLayout(layoutId);
         _this.bindStageEvents();
+        _this.handleUploaders();
     }
 
     _this.renderLayout = (layoutId) => {
