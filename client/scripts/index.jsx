@@ -8,10 +8,10 @@ window.application = require('./core/application');
 
 // alert(1);
 
-let $editors = $('.sn.editable.editor');
+let $editors = $('.sn.editor');
 if($editors.length){
     $.each($editors, (index, containerDOM) => {
-        application.register('moduleEditor' + index, require('./modules/editable-editor'), {
+        application.register('moduleEditor' + index, require('./modules/editor'), {
             containerDOM: containerDOM
         });
     })

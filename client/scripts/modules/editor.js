@@ -1,3 +1,70 @@
+'use strict';
+
+class Poll{
+    constructor(params){
+        this.initialize(params);
+    }
+
+    initialize(params){
+        this.id = params.id || 0;
+        this.layout = params.layout || 0;
+        this.reactions = params.reactions || ['haha', 'like'];
+        this.texts = params.texts || [];
+        this.images = params.images || [];
+    }
+}
+
+/**
+ _id : {type: String, index: true},
+ owner_id: {type: String},
+ stream_id: {type: String},
+
+ layout: {type: Number}, //servicePoll.POLL_LAYOUT
+ reactions: [{type: String}],
+ texts : [{type: String}],
+ images: [{type: String}],
+
+ fb_video_id: {type: String},
+ fb_stream_key: {type: String},
+
+ created_at: {type: Date, default: Date.now},
+ updated_at: {type: Date, default: Date.now}
+ */
+
+let samplePoll1 = {
+    id: "8320v824tvu3402b30bt3b",
+    owner_id: 19284098184141,
+    stream_id: '2iu20f02f0i3i2-if',
+
+    layout: 1,
+    reactions: ['haha', 'like'],
+    texts: ['Option Name 1', 'Option Name 2'],
+    images: ['http://image1', 'http://image2'],
+
+    fb_video_id: 10154826431226995,
+    fb_stream_key: '5e7z42',
+
+    created_at: '2016-11-28T13:16:50Z',
+    updated_at: '2016-11-28T13:16:50Z'
+}
+
+let samplePoll2 = {
+    id: "8320v824tvu3402b30bt3b",
+    owner_id: 19284098184141,
+    stream_id: '2iu20f02f0i3i2-if',
+
+    layout: 2,
+    reactions: ['haha', 'like'],
+    texts: ['Question'],
+    images: ['http://background', 'http://image1', 'http://image2'],
+
+    fb_video_id: 10154826431226995,
+    fb_stream_key: '5e7z42',
+
+    created_at: '2016-11-28T13:16:50Z',
+    updated_at: '2016-11-28T13:16:50Z'
+}
+
 module.exports = function(sandbox){
     let _this = this;
 
@@ -88,6 +155,38 @@ module.exports = function(sandbox){
     _this.handleUploaders = () => {
         switch(_this.data.currentLayoutId){
             case 1:
+                _this.objects.$container.find(_this.DOMSelectors.image1).dropzone({
+                    acceptedFiles: '.jpg, .jpeg, .png',
+                    thumbnailWidth: 300,
+                    thumbnailHeight: 382,
+                    paramName: 'image1',
+                    previewsContainer: false,
+                    url: '/',
+                    autoProcessQueue: true,
+                    clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage1)[0],
+                    thumbnail: (file, dataUrl) => {
+                        _this.objects.$container.find(_this.DOMSelectors.image1).css({
+                            backgroundImage: 'url('+ dataUrl + ')'
+                        });
+                    }
+                });
+                _this.objects.$container.find(_this.DOMSelectors.image2).dropzone({
+                    acceptedFiles: '.jpg, .jpeg, .png',
+                    thumbnailWidth: 300,
+                    thumbnailHeight: 382,
+                    paramName: 'image2',
+                    previewsContainer: false,
+                    url: '/',
+                    autoProcessQueue: true,
+                    clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage2)[0],
+                    thumbnail: (file, dataUrl) => {
+                        _this.objects.$container.find(_this.DOMSelectors.image2).css({
+                            backgroundImage: 'url('+ dataUrl + ')'
+                        });
+                    }
+                });
+                break;
+            case 2:
                 _this.objects.$container.find(_this.DOMSelectors.background).dropzone({
                     acceptedFiles: '.jpg, .jpeg, .png',
                     thumbnailWidth: 600,
@@ -103,38 +202,6 @@ module.exports = function(sandbox){
                         })
                     }
                 });
-                _this.objects.$container.find(_this.DOMSelectors.image1).dropzone({
-                    acceptedFiles: '.jpg, .jpeg, .png',
-                    thumbnailWidth: 140,
-                    thumbnailHeight: 140,
-                    paramName: 'image1',
-                    previewsContainer: false,
-                    url: '/',
-                    autoProcessQueue: true,
-                    clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage1)[0],
-                    thumbnail: (file, dataUrl) => {
-                        _this.objects.$container.find(_this.DOMSelectors.image1).css({
-                            backgroundImage: 'url('+ dataUrl + ')'
-                        });
-                    }
-                });
-                _this.objects.$container.find(_this.DOMSelectors.image2).dropzone({
-                    acceptedFiles: '.jpg, .jpeg, .png',
-                    thumbnailWidth: 140,
-                    thumbnailHeight: 140,
-                    paramName: 'image2',
-                    previewsContainer: false,
-                    url: '/',
-                    autoProcessQueue: true,
-                    clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage2)[0],
-                    thumbnail: (file, dataUrl) => {
-                        _this.objects.$container.find(_this.DOMSelectors.image2).css({
-                            backgroundImage: 'url('+ dataUrl + ')'
-                        });
-                    }
-                });
-                break;
-            case 2:
                 _this.objects.$container.find(_this.DOMSelectors.image1).dropzone({
                     acceptedFiles: '.jpg, .jpeg, .png',
                     thumbnailWidth: 140,
@@ -182,7 +249,12 @@ module.exports = function(sandbox){
             return;
         }
         
-        let html = swig.render(_this.templates.layouts[layoutId]);
+        let html = swig.render(_this.templates.layouts[layoutId], {
+            locals: {
+                poll: _this.data.poll,
+                mode: _this.data.mode
+            }
+        });
         
         _this.objects.$stageBody.html(html);
     }
@@ -228,14 +300,17 @@ module.exports = function(sandbox){
                 1: multiline(() => {/*!@preserve
                     <div class="sn card" data-layout-id="1">
                         <div class="layer images">
-                            <div class="object image image-1"></div>
-                            <div class="object image image-2"></div>
-                            <div class="object reaction reaction-1" data-reaction-value="haha"></div>
-                            <div class="object reaction reaction-2" data-reaction-value="like"></div>
+                            <div class="object image image-1" {% if (poll.images && poll.images[0]) %}style="background-image:url({{poll.images[0]}});"{% endif %}></div>
+                            <div class="object image image-2" {% if (poll.images && poll.images[1]) %}style="background-image:url({{poll.images[1]}});"{% endif %}></div>
+                            <div class="object reaction reaction-1" data-reaction-value="{% if (poll.images && poll.images[0]) %}{{poll.reactions[0]}}{% else %}haha{% endif %}"></div>
+                            <div class="object reaction reaction-2" data-reaction-value="{% if (poll.images && poll.images[1]) %}{{poll.reactions[1]}}{% else %}like{% endif %}"></div>
+                            <div class="object text title-1">{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}</div>
+                            <div class="object text title-2">{% if (poll.texts && poll.texts[1]) %}{{poll.texts[1]}}{% endif %}</div>
                         </div>
+                    {% if mode == 'edit' %}
                         <div class="layer controls">
-                            <input type="text" class="object title title-1" placeholder="Enter option's name"/>
-                            <input type="text" class="object title title-2" placeholder="Enter option's name"/>
+                            <input type="text" class="object input title-1" placeholder="Enter option's name" value="{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}"/>
+                            <input type="text" class="object input title-2" placeholder="Enter option's name" value="{% if (poll.texts && poll.texts[1]) %}{{poll.texts[1]}}{% endif %}"/>
                             <div class="object trigger image-trigger" data-trigger-object="image-1"></div>
                             <div class="object trigger image-trigger" data-trigger-object="image-2"></div>
                             <div class="object trigger reaction-trigger" data-trigger-object="reaction-1"></div>
@@ -259,19 +334,22 @@ module.exports = function(sandbox){
                                 <div class="item" data-reaction-value="angry"></div>
                             </div>
                         </div>
+                    {% endif %}
                     </div>
                 */console.log}),
                 2: multiline(() => {/*!@preserve
                     <div class="sn card" data-layout-id="2">
                         <div class="layer images">
-                            <div class="object background"></div>
-                            <div class="object image image-1"></div>
-                            <div class="object image image-2"></div>
-                            <div class="object reaction reaction-1" data-reaction-value="haha"></div>
-                            <div class="object reaction reaction-2" data-reaction-value="like"></div>
+                            <div class="object background" {% if (poll.images && poll.images[0]) %}style="background-image:url({{poll.images[0]}});"{% endif %}></div>
+                            <div class="object image image-1" {% if (poll.images && poll.images[1]) %}style="background-image:url({{poll.images[1]}});"{% endif %}></div>
+                            <div class="object image image-2" {% if (poll.images && poll.images[2]) %}style="background-image:url({{poll.images[2]}});"{% endif %}></div>
+                            <div class="object reaction reaction-1" data-reaction-value="{% if (poll.images && poll.images[0]) %}{{poll.reactions[0]}}{% endif %}"></div>
+                            <div class="object reaction reaction-2" data-reaction-value="{% if (poll.images && poll.images[1]) %}{{poll.reactions[1]}}{% endif %}"></div>
+                            <div class="object text question">{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}</div>
                         </div>
+                    {% if mode == 'edit' %}
                         <div class="layer controls">
-                            <textarea class="object question" placeholder="Enter your question here..."></textarea>
+                            <textarea class="object question" placeholder="Enter your question here...">{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}</textarea>
                             <div class="object trigger image-trigger" data-trigger-object="background"></div>
                             <div class="object trigger image-trigger" data-trigger-object="image-1"></div>
                             <div class="object trigger image-trigger" data-trigger-object="image-2"></div>
@@ -296,12 +374,18 @@ module.exports = function(sandbox){
                                 <div class="item" data-reaction-value="angry"></div>
                             </div>
                         </div>
+                    {% endif %}
                     </div>
                 */console.log})
             }
         }
 
         _this.data.currentLayoutId = _this.objects.$container.data('layout-id') || 1;
+
+        _this.data.mode = _this.objects.$container.hasClass('editable')?'edit':'view';
+
+        let pollDataString = decodeURIComponent(_this.objects.$container.data('poll-data') || '') || '{}';
+        _this.data.poll = JSON.parse(pollDataString);
 
         _this.render();
 
