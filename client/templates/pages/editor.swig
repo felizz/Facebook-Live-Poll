@@ -5,7 +5,7 @@
     <div class="container">
         <div class="col-md-8 col-md-offset-2 text-center">
             <h2>Create your own Facebook Live Poll</h2>
-            <h3>A successful marketing plan relies heavily on the pulling-power of advertising copy. Writing result-oriented ad copy is difficult,</h3>
+            <p>Start your new poll by choosing layout on the right panel and enter the respective content on the left editor</p>
         </div>
     </div>
 </div>
