@@ -11,7 +11,7 @@
 </div>
 
 <div class="body">
-    <div class="sn editor">
+    <div class="sn editable editor" data-layout-id="1">
         <div class="container">
             <div class="row">
                 <div class="menu-container">
@@ -46,41 +46,7 @@
                         </div>
 
                         <div class="body">
-                            <div class="sn card" data-layout-id="2">
-                                <div class="layer images">
-                                    <div class="object background"></div>
-                                    <div class="object image image-1"></div>
-                                    <div class="object image image-2"></div>
-                                    <div class="object reaction reaction-1" data-reaction-value="haha"></div>
-                                    <div class="object reaction reaction-2" data-reaction-value="like"></div>
-                                </div>
-                                <div class="layer controls">
-                                    <textarea class="object question" placeholder="Enter your question here..."></textarea>
-                                    <div class="object trigger image-trigger" data-trigger-object="background"></div>
-                                    <div class="object trigger image-trigger" data-trigger-object="image-1"></div>
-                                    <div class="object trigger image-trigger" data-trigger-object="image-2"></div>
-                                    <div class="object trigger reaction-trigger" data-trigger-object="reaction-1"></div>
-                                    <div class="object trigger reaction-trigger" data-trigger-object="reaction-2"></div>
 
-                                    <div class="object reactions-list" data-target-object="reaction-1">
-                                        <div class="item" data-reaction-value="like"></div>
-                                        <div class="item" data-reaction-value="love"></div>
-                                        <div class="item" data-reaction-value="haha"></div>
-                                        <div class="item" data-reaction-value="wow"></div>
-                                        <div class="item" data-reaction-value="sad"></div>
-                                        <div class="item" data-reaction-value="angry"></div>
-                                    </div>
-
-                                    <div class="object reactions-list" data-target-object="reaction-2">
-                                        <div class="item" data-reaction-value="like"></div>
-                                        <div class="item" data-reaction-value="love"></div>
-                                        <div class="item" data-reaction-value="haha"></div>
-                                        <div class="item" data-reaction-value="wow"></div>
-                                        <div class="item" data-reaction-value="sad"></div>
-                                        <div class="item" data-reaction-value="angry"></div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
