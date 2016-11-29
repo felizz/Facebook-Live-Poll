@@ -84,12 +84,89 @@
 
                         <p>
                             2. Once OBS Software is installed, go to Settings (or Preferences in Mac), click on “Stream” in the left menu.<br/>
-                            Select “Streaming Services” as the Stream Type and “Facebook Live” as the Service. Enter <Stream Key here> as the Stream key.
+                            Select “Streaming Services” as the Stream Type and “Facebook Live” as the Service. Enter --Stream Key-- as the Stream key.
                         </p>
 
                         <p class="text-center">
                             <img src='./../../images/demo/modules/editor/instructions.image-4.png' alt="">
                         </p>
+
+                        <p>
+                            Then click on Video on the left menu. Enter the Width & Height of the Video as --WidthxHeight--.
+                        </p>
+
+                        <p class="text-center">
+                            <img src='./../../images/demo/modules/editor/instructions.image-4.5.png' alt="">
+                        </p>
+
+                        <p>
+                            Then click on Ok button.
+                        </p>
+
+                        <p>
+                            3. Add your source in OBS dashboard. Click on “+” > “Browsersource” > Create new.
+                        </p>
+
+                        <p class="text-center">
+                            <img src='./../../images/demo/modules/editor/instructions.image-5.png' alt="">
+                        </p>
+
+                        <p>
+                           Then enter a name for this new video input stream
+                        </p>
+
+                        <p class="text-center">
+                            <img src='./../../images/demo/modules/editor/instructions.image-6.png' alt="">
+                        </p>
+
+                        <p>
+                            In the following dialog, enter --Stream URL-- as Stream URL, --WidthxHeigh-- as Width & Height separately.
+                        </p>
+
+                        <p class="text-center">
+                            <img src='./../../images/demo/modules/editor/instructions.image-7.png' alt="">
+                        </p>
+
+                        <p>
+                            Then click on OK button.
+                        </p>
+
+                        <p>
+                            4. After finish setting up for OBS, click on Start Streaming
+                        </p>
+
+                        <p class="text-center">
+                            <img src='./../../images/demo/modules/editor/instructions.image-8.png' alt="">
+                        </p>
+
+
+                    </div>
+                </div>
+            </li>
+
+            <li class="item">
+                <div class="indicator number">3</div>
+                <div class="content">
+                    <div class="header">
+                        <h4 class="title">Let go live!</h4>
+                    </div>
+                    <div class="body">
+
+
+                        <p>
+                            We go back to the Live Posting Popup. Wait for a few seconds, it should display “Fetching video stream”.
+                            After few more seconds, it should pick up the stream from OBS Software. You will be able then to see the poll we created.
+                        </p>
+
+                        <p class="text-center">
+                            <img src='./../../images/demo/modules/editor/instructions.image-9.png' alt="">
+                        </p>
+
+                        <p>
+                            If thing goes as expected, click on "Go Live". Now enjoy your result! you have made your first Live Polling post on your Facebook page.
+                        </p>
+
+
                     </div>
                 </div>
             </li>
