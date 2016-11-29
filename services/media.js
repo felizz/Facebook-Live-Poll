@@ -30,7 +30,7 @@ module.exports = {
 
             if(res.statusCode === 200){
                 logger.debug(`Successfuly put file ${localFilePath} to S3 image dir ${imageName} `);
-                return callback(null, config.web_endpoint + S3_IMAGE_PATH + imageName);
+                return callback(null, config.AWS.web_endpoint + S3_IMAGE_PATH + imageName);
             }
             else {
                 return callback(new SNError(`Error putting file ${localFilePath} to S3. Response code = ` + res.statusCode));
