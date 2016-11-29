@@ -11,24 +11,29 @@
 
         <h3>Next step to set up Live Polling on Facebook</h3>
 
+        <p> Note </p>
+        <p> - Duration: 15 minutes </p>
+
         <ul class="sn timeline">
             <li class="item">
                 <div class="indicator number">1</div>
                 <div class="content">
                     <div class="header">
-                        <h4 class="title">Set your Facebook Live</h4>
+                        <h4 class="title">Create your Facebook Live Video</h4>
                     </div>
                     <div class="body">
                         <p>
-                            To go live, we will use the <a>Publishing Tools</a> on your Facebook Page.<br/>
-                            Log on to your Facebook page and click on Publishing Tools in the top menu. Then click on Videos on the left menu. Then click on the +Live button on the top right.
-                        </p>
+                            Log in to your Facebook page and click on Publishing Tools in the page navigation menu. Then click on Videos on the left menu. Then click on the +Live button as described in the image below. </p>
                         <p class="text-center">
                             <img src='./../../images/demo/modules/editor/instructions.image-1.png' alt="">
                         </p>
 
                         <p>
-                            Then copy the stream key in the modal window that appears:
+                            Then you need to copy the Stream Key in the window that appears. Save it below:
+                        </p>
+
+                        <p>
+                            -- Box for saving Stream key here --
                         </p>
 
                         <p class="text-center">
@@ -44,11 +49,21 @@
                         </p>
 
                         <p>
-                            After fill in the content for the live poll post, we need to retrieve its Post ID. Click on Setting (the top right gear icon) → embed. You will see the embedded Link for this Post. Copy only the Video Id (normally is the digit-only string) from the link and paste it below:
+                            After fill in the content for the live poll post, we need to retrieve its Video ID.
+                            Click on Setting (the top right gear icon) → embed. You will see the embedded Link for this Post.
+                            Copy only the Video Id (normally is the digit-only string) from the link and paste it below:
                         </p>
 
                         <p>
-                            We leave the popup open for now. We will need to finish step 2 before coming back here.
+                            -- Box for saving Video Id here --
+                        </p>
+
+                        <p class="text-center">
+                            <img src='./../../images/demo/modules/editor/instructions.image-3.5.png' alt="">
+                        </p>
+
+                        <p>
+                            Click on Ok and leave the popup open for now. We will need to finish step 2 before coming back here.
                         </p>
                     </div>
                 </div>
@@ -61,13 +76,13 @@
                         <h4 class="title">Configure OBS Streaming Software</h4>
                     </div>
                     <div class="body">
+
+
                         <p>
-                            Duration: 15 minutes
+                            1. If you haven’t download and install OBS, do it now through <a href="https://obsproject.com/download">this link</a>.
                         </p>
 
                         <p>
-                            This is the second and last step of this guide.<br/>
-                            1. If you haven’t download and install OBS, do it now through this link.<br/>
                             2. Once OBS Software is installed, go to Settings (or Preferences in Mac), click on “Stream” in the left menu.<br/>
                             Select “Streaming Services” as the Stream Type and “Facebook Live” as the Service. Enter <Stream Key here> as the Stream key.
                         </p>
