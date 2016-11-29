@@ -64,10 +64,10 @@ var poll = {
             return errRes.sendWith(res);
         }
 
-        var owner_id = req.isAuthenticated() ? req.user._id : 'SySwjlXzl';  //Fixme for testing purpose
+        var _owner = req.isAuthenticated() ? req.user._id : 'SySwjlXzl';  //Fixme for testing purpose
         var layout = req.body.layout ?  parseInt(req.body.layout) : servicePoll.POLL_LAYOUT.DEFAULT;
 
-        servicePoll.createFixedSizePoll(owner_id, layout, req.body.reactions, req.body.texts, req.body.images, function createPollCallback(err, poll){
+        servicePoll.createFixedSizePoll(_owner, layout, req.body.reactions, req.body.texts, req.body.images, function createPollCallback(err, poll){
 
             if (err) {
                 logger.prettyError(err);
@@ -98,16 +98,22 @@ var poll = {
             logger.prettyError(err);
             return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
         }
-        servicePoll.getPollById(pollId, function getPollCallback(err, poll) {
+        servicePoll.getPollByIdWithOwnerInfo(pollId, function getPollCallback(err, pollWithOwnerInfo) {
             if (err) {
                 return apiErrors.INTERNAL_SERVER_ERROR.new().sendWith(res);
             }
 
-            if(!poll){
+            if(!pollWithOwnerInfo){
                 return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
             }
 
-            return res.render('poll', {poll : poll,req: req});
+            if(!req.user || !(req.user._id == pollWithOwnerInfo._owner._id)){
+                pollWithOwnerInfo.stream_id = null;
+            }
+
+            logger.debug('Poll with Owner Info = ' + JSON.stringify(pollWithOwnerInfo));
+
+            return res.render('poll', {poll : pollWithOwnerInfo,req: req});
         });
     },
 
@@ -159,7 +165,7 @@ var poll = {
             }
 
             //Fixme enable this when we not testing anymore
-            //if (poll.owner_id != req.user._id){
+            //if (poll._owner != req.user._id){
             //    return apiErrors.INSUFFICIENT_PRIVILEGES.new().sendWith(res);
             //}
 

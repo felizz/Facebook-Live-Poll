@@ -34,6 +34,57 @@ const rawPoll = {
         'image2':''
     }
 };
+/**
+ _id : {type: String, index: true},
+ _owner: {type: String},
+ stream_id: {type: String},
+
+ layout: {type: Number}, //servicePoll.POLL_LAYOUT
+ reactions: [{type: String}],
+ texts : [{type: String}],
+ images: [{type: String}],
+
+ fb_video_id: {type: String},
+ fb_stream_key: {type: String},
+
+ created_at: {type: Date, default: Date.now},
+ updated_at: {type: Date, default: Date.now}
+ */
+
+let samplePoll1 = {
+    id: "8320v824tvu3402b30bt3b",
+    _owner: 19284098184141,
+    stream_id: '2iu20f02f0i3i2-if',
+
+    layout: 1,
+    reactions: ['haha', 'like'],
+    texts: ['Option Name 1', 'Option Name 2'],
+    images: ['http://image1', 'http://image2'],
+
+    fb_video_id: 10154826431226995,
+    fb_stream_key: '5e7z42',
+
+    created_at: '2016-11-28T13:16:50Z',
+    updated_at: '2016-11-28T13:16:50Z'
+}
+
+let samplePoll2 = {
+    id: "8320v824tvu3402b30bt3b",
+    _owner: 19284098184141,
+    stream_id: '2iu20f02f0i3i2-if',
+
+    layout: 2,
+    reactions: ['haha', 'like'],
+    texts: ['Question'],
+    images: ['http://background', 'http://image1', 'http://image2'],
+
+    fb_video_id: 10154826431226995,
+    fb_stream_key: '5e7z42',
+
+    created_at: '2016-11-28T13:16:50Z',
+    updated_at: '2016-11-28T13:16:50Z'
+}
+
 
 const rawPollSchema = Joi.object().keys({
     layout: Joi.number().integer().min(1).max(2)
