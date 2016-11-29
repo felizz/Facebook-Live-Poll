@@ -16,7 +16,7 @@ class Poll{
 
 /**
  _id : {type: String, index: true},
- owner_id: {type: String},
+ _owner: {type: String},
  stream_id: {type: String},
 
  layout: {type: Number}, //servicePoll.POLL_LAYOUT
@@ -33,7 +33,7 @@ class Poll{
 
 let samplePoll1 = {
     id: "8320v824tvu3402b30bt3b",
-    owner_id: 19284098184141,
+    _owner: 19284098184141,
     stream_id: '2iu20f02f0i3i2-if',
 
     layout: 1,
@@ -50,7 +50,7 @@ let samplePoll1 = {
 
 let samplePoll2 = {
     id: "8320v824tvu3402b30bt3b",
-    owner_id: 19284098184141,
+    _owner: 19284098184141,
     stream_id: '2iu20f02f0i3i2-if',
 
     layout: 2,
