@@ -18,9 +18,9 @@ var POLL_LAYOUT = {
 var servicePoll = {
     POLL_LAYOUT : POLL_LAYOUT,
 
-    createFixedSizePoll : function (owner_id, layout, reactions, texts, images, callback){
+    createFixedSizePoll : function (_owner, layout, reactions, texts, images, callback){
         var newPoll = new Poll({
-            owner_id: owner_id,
+            _owner: _owner,
             layout : layout,
             reactions: reactions,
             texts : texts,
@@ -43,6 +43,16 @@ var servicePoll = {
         });
     },
 
+    getPollByIdWithOwnerInfo: function (pollId, callback){
+
+        Poll
+            .findOne({ _id: pollId })
+            .populate('_owner')
+            .exec(function (err, poll) {
+                return callback(err, poll);
+            });
+    },
+
     getPollByStreamId: function (streamId, callback){
         Poll.findOne({stream_id: streamId}, function (err, poll) {
             if (err) {
@@ -63,7 +73,7 @@ var servicePoll = {
                 return callback(err);
             }
 
-            serviceUser.getUserInfoById(poll.owner_id, function getUserCallback (err, owner){
+            serviceUser.getUserInfoById(poll._owner, function getUserCallback (err, owner){
 
                 fbPostId = poll.fb_video_id;
                 fbAccessToken = owner.fb_access_token;

@@ -9,7 +9,7 @@ var shortid = require('shortid');
 
 var Poll = new Schema({
     _id : {type: String, index: true},
-    owner_id: {type: String},
+    _owner: {type: String, ref : 'User'},
     stream_id: {type: String},
 
     layout: {type: Number}, //servicePoll.POLL_LAYOUT

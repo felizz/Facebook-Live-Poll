@@ -11,7 +11,7 @@
 </div>
 
 <div class="body">
-    <div class="sn editor" data-layout-id="2" data-poll-data="%7B%22id%22%3A%228320v824tvu3402b30bt3b%22%2C%22owner_id%22%3A19284098184141%2C%22stream_id%22%3A%222iu20f02f0i3i2-if%22%2C%22layout%22%3A1%2C%22reactions%22%3A%5B%22haha%22%2C%22like%22%5D%2C%22texts%22%3A%5B%22Question%20content%22%5D%2C%22images%22%3A%5B%22http%3A%2F%2Florempixel.com%2F600%2F382%2Fanimals%2F1%2F%22%2C%22http%3A%2F%2Florempixel.com%2F140%2F140%2Fanimals%2F2%2F%22%2C%22http%3A%2F%2Florempixel.com%2F140%2F140%2Fanimals%2F3%2F%22%5D%2C%22fb_video_id%22%3A10154826431226996%2C%22fb_stream_key%22%3A%225e7z42%22%2C%22created_at%22%3A%222016-11-28T13%3A16%3A50Z%22%2C%22updated_at%22%3A%222016-11-28T13%3A16%3A50Z%22%7D">
+    <div class="sn editor" data-layout-id="2" data-poll-data="%7B%22id%22%3A%228320v824tvu3402b30bt3b%22%2C%22_owner%22%3A19284098184141%2C%22stream_id%22%3A%222iu20f02f0i3i2-if%22%2C%22layout%22%3A1%2C%22reactions%22%3A%5B%22haha%22%2C%22like%22%5D%2C%22texts%22%3A%5B%22Question%20content%22%5D%2C%22images%22%3A%5B%22http%3A%2F%2Florempixel.com%2F600%2F382%2Fanimals%2F1%2F%22%2C%22http%3A%2F%2Florempixel.com%2F140%2F140%2Fanimals%2F2%2F%22%2C%22http%3A%2F%2Florempixel.com%2F140%2F140%2Fanimals%2F3%2F%22%5D%2C%22fb_video_id%22%3A10154826431226996%2C%22fb_stream_key%22%3A%225e7z42%22%2C%22created_at%22%3A%222016-11-28T13%3A16%3A50Z%22%2C%22updated_at%22%3A%222016-11-28T13%3A16%3A50Z%22%7D">
         <div class="container">
             <div class="row">
                 <div class="menu-container">
