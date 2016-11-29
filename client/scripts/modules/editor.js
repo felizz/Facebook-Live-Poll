@@ -1,5 +1,7 @@
 'use strict';
 
+import Joi from 'joi-browser';
+
 class Poll{
     constructor(params){
         this.initialize(params);
@@ -14,62 +16,42 @@ class Poll{
     }
 }
 
-/**
- _id : {type: String, index: true},
- owner_id: {type: String},
- stream_id: {type: String},
-
- layout: {type: Number}, //servicePoll.POLL_LAYOUT
- reactions: [{type: String}],
- texts : [{type: String}],
- images: [{type: String}],
-
- fb_video_id: {type: String},
- fb_stream_key: {type: String},
-
- created_at: {type: Date, default: Date.now},
- updated_at: {type: Date, default: Date.now}
- */
-
-let samplePoll1 = {
-    id: "8320v824tvu3402b30bt3b",
-    owner_id: 19284098184141,
-    stream_id: '2iu20f02f0i3i2-if',
-
+const rawPoll = {
+    title: '',
     layout: 1,
-    reactions: ['haha', 'like'],
-    texts: ['Option Name 1', 'Option Name 2'],
-    images: ['http://image1', 'http://image2'],
+    reactions: {
+        reaction1: 'haha',
+        reaction2: 'like'
+    },
+    texts: {
+        'question': '',
+        'text1': '',
+        'text2': ''
+    },
+    images: {
+        'background':'',
+        'image1':'',
+        'image2':''
+    }
+};
 
-    fb_video_id: 10154826431226995,
-    fb_stream_key: '5e7z42',
-
-    created_at: '2016-11-28T13:16:50Z',
-    updated_at: '2016-11-28T13:16:50Z'
-}
-
-let samplePoll2 = {
-    id: "8320v824tvu3402b30bt3b",
-    owner_id: 19284098184141,
-    stream_id: '2iu20f02f0i3i2-if',
-
-    layout: 2,
-    reactions: ['haha', 'like'],
-    texts: ['Question'],
-    images: ['http://background', 'http://image1', 'http://image2'],
-
-    fb_video_id: 10154826431226995,
-    fb_stream_key: '5e7z42',
-
-    created_at: '2016-11-28T13:16:50Z',
-    updated_at: '2016-11-28T13:16:50Z'
-}
+const rawPollSchema = Joi.object().keys({
+    layout: Joi.number().integer().min(1).max(2)
+});
 
 module.exports = function(sandbox){
     let _this = this;
 
     _this.render = () => {
         _this.renderLayout(_this.data.currentLayoutId);
+    }
+
+    _this.bindPublishEvents = () => {
+        _this.objects.$buttonPublish
+            .on('click', function(event){
+                _this.publish();
+            })
+        ;
     }
 
     _this.bindStageEvents = () => {
@@ -105,6 +87,11 @@ module.exports = function(sandbox){
                     return;
                 }
 
+                if(_this.data.rawPoll
+                && _this.data.rawPoll.reactions){
+                    _this.data.rawPoll.reactions.reaction1 = selectedReactionValue1;
+                }
+
                 _this.objects.$container.find(_this.DOMSelectors.reaction1).attr('data-reaction-value', selectedReactionValue1);
 
                 _this.objects.$container.find(_this.DOMSelectors.reactionsList1).removeClass('active');
@@ -118,9 +105,38 @@ module.exports = function(sandbox){
                     return;
                 }
 
+                if(_this.data.rawPoll
+                    && _this.data.rawPoll.reactions){
+                    _this.data.rawPoll.reactions.reaction2 = selectedReactionValue2;
+                }
+
                 _this.objects.$container.find(_this.DOMSelectors.reaction2).attr('data-reaction-value', selectedReactionValue2);
 
                 _this.objects.$container.find(_this.DOMSelectors.reactionsList2).removeClass('active');
+            })
+            .on('change', _this.DOMSelectors.inputQuestion, function(event){
+                let $this = $(this);
+
+                if(_this.data.rawPoll
+                    && _this.data.rawPoll.texts){
+                    _this.data.rawPoll.texts.question = $this.val();
+                }
+            })
+            .on('change', _this.DOMSelectors.inputText1, function(event){
+                let $this = $(this);
+
+                if(_this.data.rawPoll
+                    && _this.data.rawPoll.texts){
+                    _this.data.rawPoll.texts.text1 = $this.val();
+                }
+            })
+            .on('change', _this.DOMSelectors.inputText2, function(event){
+                let $this = $(this);
+
+                if(_this.data.rawPoll
+                    && _this.data.rawPoll.texts){
+                    _this.data.rawPoll.texts.text2 = $this.val();
+                }
             })
         ;
     }
@@ -159,30 +175,46 @@ module.exports = function(sandbox){
                     acceptedFiles: '.jpg, .jpeg, .png',
                     thumbnailWidth: 300,
                     thumbnailHeight: 382,
-                    paramName: 'image1',
+                    paramName: 'fileToUpload',
                     previewsContainer: false,
-                    url: '/',
+                    url: '/api/v1/poll/upload-image',
                     autoProcessQueue: true,
                     clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage1)[0],
                     thumbnail: (file, dataUrl) => {
                         _this.objects.$container.find(_this.DOMSelectors.image1).css({
                             backgroundImage: 'url('+ dataUrl + ')'
                         });
+                    },
+                    success: (file, response) => {
+                        if(_this.data.rawPoll
+                        && _this.data.rawPoll.images
+                        && response
+                        && response.url){
+                            _this.data.rawPoll.images.image1 = response.url
+                        }
                     }
                 });
                 _this.objects.$container.find(_this.DOMSelectors.image2).dropzone({
                     acceptedFiles: '.jpg, .jpeg, .png',
                     thumbnailWidth: 300,
                     thumbnailHeight: 382,
-                    paramName: 'image2',
+                    paramName: 'fileToUpload',
                     previewsContainer: false,
-                    url: '/',
+                    url: '/api/v1/poll/upload-image',
                     autoProcessQueue: true,
                     clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage2)[0],
                     thumbnail: (file, dataUrl) => {
                         _this.objects.$container.find(_this.DOMSelectors.image2).css({
                             backgroundImage: 'url('+ dataUrl + ')'
                         });
+                    },
+                    success: (file, response) => {
+                        if(_this.data.rawPoll
+                            && _this.data.rawPoll.images
+                            && response
+                            && response.url){
+                            _this.data.rawPoll.images.image2 = response.url
+                        }
                     }
                 });
                 break;
@@ -191,45 +223,69 @@ module.exports = function(sandbox){
                     acceptedFiles: '.jpg, .jpeg, .png',
                     thumbnailWidth: 600,
                     thumbnailHeight: 382,
-                    paramName: 'background',
+                    paramName: 'fileToUpload',
                     previewsContainer: false,
-                    url: '/',
+                    url: '/api/v1/poll/upload-image',
                     autoProcessQueue: true,
                     clickable: _this.objects.$container.find(_this.DOMSelectors.triggerBackground)[0],
                     thumbnail: (file, dataUrl) => {
                         _this.objects.$container.find(_this.DOMSelectors.background).css({
                             backgroundImage: 'url('+ dataUrl + ')'
                         })
-                    }
+                    },
+                    success: (file, response) => {
+                if(_this.data.rawPoll
+                    && _this.data.rawPoll.images
+                    && response
+                    && response.url){
+                    _this.data.rawPoll.images.background = response.url
+                }
+            }
                 });
                 _this.objects.$container.find(_this.DOMSelectors.image1).dropzone({
                     acceptedFiles: '.jpg, .jpeg, .png',
                     thumbnailWidth: 140,
                     thumbnailHeight: 140,
-                    paramName: 'image1',
+                    paramName: 'fileToUpload',
                     previewsContainer: false,
-                    url: '/',
+                    url: '/api/v1/poll/upload-image',
                     autoProcessQueue: true,
                     clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage1)[0],
                     thumbnail: (file, dataUrl) => {
                         _this.objects.$container.find(_this.DOMSelectors.image1).css({
                             backgroundImage: 'url('+ dataUrl + ')'
                         });
+                    },
+                    success: (file, response) => {
+                        if(_this.data.rawPoll
+                            && _this.data.rawPoll.images
+                            && response
+                            && response.url){
+                            _this.data.rawPoll.images.image1 = response.url
+                        }
                     }
                 });
                 _this.objects.$container.find(_this.DOMSelectors.image2).dropzone({
                     acceptedFiles: '.jpg, .jpeg, .png',
                     thumbnailWidth: 140,
                     thumbnailHeight: 140,
-                    paramName: 'image2',
+                    paramName: 'fileToUpload',
                     previewsContainer: false,
-                    url: '/',
+                    url: '/api/v1/poll/upload-image',
                     autoProcessQueue: true,
                     clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage2)[0],
                     thumbnail: (file, dataUrl) => {
                         _this.objects.$container.find(_this.DOMSelectors.image2).css({
                             backgroundImage: 'url('+ dataUrl + ')'
                         });
+                    },
+                    success: (file, response) => {
+                        if(_this.data.rawPoll
+                            && _this.data.rawPoll.images
+                            && response
+                            && response.url){
+                            _this.data.rawPoll.images.image2 = response.url
+                        }
                     }
                 });
                 break;
@@ -248,6 +304,12 @@ module.exports = function(sandbox){
     _this.setCurrentLayout = (layoutId) => {
         if(layoutId){
             _this.data.currentLayoutId = layoutId;
+
+            if(_this.data.rawPoll){
+                //FIXME: Reset raw poll when switching between layouts
+                _this.data.rawPoll = rawPoll;
+                _this.data.rawPoll.layout = layoutId;
+            }
         }
     }
 
@@ -267,6 +329,51 @@ module.exports = function(sandbox){
     }
 
     _this.removeLayout = () => {}
+
+    _this.publish = () => {
+        console.log('publish with following data', _this.transformData(_this.data.rawPoll));
+
+        let requestedData = _this.transformData(_this.data.rawPoll);
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/v1/poll/create',
+            data: JSON.stringify(requestedData),
+            contentType: "application/json; charset=utf-8",
+            done: (response) => {
+
+            }
+        })
+    }
+
+    _this.transformData = (data) => {
+        let transformedData = {};
+
+        transformedData.layout = data.layout;
+        transformedData.reactions = [data.reactions.reaction1, data.reactions.reaction2];
+
+        switch (data.layout){
+            case 1:
+                transformedData.images = [data.images.image1, data.images.image2];
+                transformedData.texts = [data.texts.text1, data.texts.text2];
+                break;
+            case 2:
+
+                transformedData.images = [data.images.background, data.images.image1, data.images.image2];
+                transformedData.texts = [data.texts.question];
+                break;
+        }
+
+        return transformedData;
+    }
+
+    _this.validateData = (data) => {
+        if(!data.layout){
+            return false;
+        }
+
+        return true;
+    }
 
     _this.init = (data) => {
         _this.data = data || {};
@@ -289,12 +396,16 @@ module.exports = function(sandbox){
             reactionsLists: '.object.reactions-list',
             reactionsList1: '.object.reactions-list[data-target-object="reaction-1"]',
             reactionsList2: '.object.reactions-list[data-target-object="reaction-2"]',
+            inputQuestion: 'textarea.object.question',
+            inputText1: 'input.object.input.title-1',
+            inputText2: 'input.object.input.title-2'
         };
 
         _this.objects = {};
         _this.objects.$container = $(_this.data.containerDOM);
         _this.objects.$menuLayouts = _this.objects.$container.find('.menu .layouts');
         _this.objects.$menuLayoutsBodyList = _this.objects.$menuLayouts.find('.body .list');
+        _this.objects.$buttonPublish = _this.objects.$container.find('[data-action=publish]');
         _this.objects.$stage = _this.objects.$container.find('.stage');
         _this.objects.$stageBody = _this.objects.$stage.children('.body');
 
@@ -392,11 +503,16 @@ module.exports = function(sandbox){
         _this.data.mode = _this.objects.$container.hasClass('editable')?'edit':'view';
 
         let pollDataString = decodeURIComponent(_this.objects.$container.data('poll-data') || '') || '{}';
+
+        console.log('POLL', new Poll(JSON.parse(pollDataString)));
+
         _this.data.poll = JSON.parse(pollDataString);
+        _this.data.rawPoll = rawPoll;
 
         _this.render();
 
         _this.bindMenuLayoutsEvents();
+        _this.bindPublishEvents();
         _this.bindStageEvents();
         _this.handleUploaders();
     }
