@@ -239,9 +239,16 @@ module.exports = function(sandbox){
     _this.switchLayout = (layoutId) => {
         _this.removeStageEvents();
         _this.removeLayout();
+        _this.setCurrentLayout(layoutId);
         _this.renderLayout(layoutId);
         _this.bindStageEvents();
         _this.handleUploaders();
+    }
+
+    _this.setCurrentLayout = (layoutId) => {
+        if(layoutId){
+            _this.data.currentLayoutId = layoutId;
+        }
     }
 
     _this.renderLayout = (layoutId) => {
@@ -343,8 +350,8 @@ module.exports = function(sandbox){
                             <div class="object background" {% if (poll.images && poll.images[0]) %}style="background-image:url({{poll.images[0]}});"{% endif %}></div>
                             <div class="object image image-1" {% if (poll.images && poll.images[1]) %}style="background-image:url({{poll.images[1]}});"{% endif %}></div>
                             <div class="object image image-2" {% if (poll.images && poll.images[2]) %}style="background-image:url({{poll.images[2]}});"{% endif %}></div>
-                            <div class="object reaction reaction-1" data-reaction-value="{% if (poll.images && poll.images[0]) %}{{poll.reactions[0]}}{% endif %}"></div>
-                            <div class="object reaction reaction-2" data-reaction-value="{% if (poll.images && poll.images[1]) %}{{poll.reactions[1]}}{% endif %}"></div>
+                            <div class="object reaction reaction-1" data-reaction-value="{% if (poll.images && poll.images[0]) %}{{poll.reactions[0]}}{% else %}haha{% endif %}"></div>
+                            <div class="object reaction reaction-2" data-reaction-value="{% if (poll.images && poll.images[1]) %}{{poll.reactions[1]}}{% else %}like{% endif %}"></div>
                             <div class="object text question">{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}</div>
                         </div>
                     {% if mode == 'edit' %}
