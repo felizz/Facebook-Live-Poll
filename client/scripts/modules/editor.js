@@ -95,7 +95,7 @@ module.exports = function(sandbox){
 
     _this.render = () => {
         _this.renderLayout(_this.data.currentLayoutId);
-        _this.renderUsedReactionsCounter();
+        _this.renderReactionsCounts();
     }
 
     _this.bindPublishEvents = () => {
@@ -405,6 +405,51 @@ module.exports = function(sandbox){
         _this.objects.$stageBody.html(html);
     }
 
+    _this.renderReactionsCounts = () => {
+        if('view' !== _this.data.mode){
+            return false;
+        }
+
+        if(!_this.data.poll
+        || !_this.data.poll._id){
+            return false;
+        }
+
+        let pollId = _this.data.poll._id,
+            fbVideoId = _this.data.poll.fb_video_id
+        ;
+
+        let requestedData = {
+            poll_id: pollId
+        }
+
+        $
+            .ajax({
+                type: 'GET',
+                url: '/api/v1/poll/'+pollId+'/reactions-count',
+                data: requestedData
+            })
+            .done((response) => {
+                let reaction1 = _this.data.poll.reactions[0],
+                    reaction2 = _this.data.poll.reactions[1],
+                    html = swig.render(_this.templates.reactionsCounts, {
+                        locals: {
+                            reactionsCounts: [
+                                response[reaction1],
+                                response[reaction2]
+                            ]
+                        }
+                    })
+                ;
+
+                _this.objects.$container.find(_this.DOMSelectors.layerImages).append(html);
+            })
+            .fail((response) => {
+                console.log('failed', response);
+            })
+        ;
+    }
+
     _this.renderUsedReactionsCounter = () => {
         if(!_this.objects.$menuInfo.length){
             return false;
@@ -520,7 +565,10 @@ module.exports = function(sandbox){
             inputText1: 'input.object.input.title-1',
             inputText2: 'input.object.input.title-2',
 
-            usedReactionsCounter: '.reaction-used-counter'
+            usedReactionsCounter: '.reaction-used-counter',
+
+            layerImages: '.layer.images',
+            layerControls: '.layer.controls'
         };
 
         _this.objects = {};
@@ -587,6 +635,8 @@ module.exports = function(sandbox){
                             <div class="object reaction reaction-1" data-reaction-value="{% if (poll.images && poll.images[0]) %}{{poll.reactions[0]}}{% else %}haha{% endif %}"></div>
                             <div class="object reaction reaction-2" data-reaction-value="{% if (poll.images && poll.images[1]) %}{{poll.reactions[1]}}{% else %}like{% endif %}"></div>
                             <div class="object text question">{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}</div>
+                            <div class="object reactions-count reactions-count-1">123</div>
+                            <div class="object reactions-count reactions-count-2">456</div>
                         </div>
                     {% if mode == 'edit' %}
                         <div class="layer controls">
@@ -618,7 +668,11 @@ module.exports = function(sandbox){
                     {% endif %}
                     </div>
                 */console.log})
-            }
+            },
+            reactionsCounts: multiline(() => {/*!@preserve
+                <div class="object reactions-count reactions-count-1">{{reactionsCounts[0]}}</div>
+                <div class="object reactions-count reactions-count-2">{{reactionsCounts[1]}}</div>
+            */console.log})
         }
 
         _this.data.currentLayoutId = _this.objects.$container.data('layout-id') || 1;
@@ -626,8 +680,6 @@ module.exports = function(sandbox){
         _this.data.mode = _this.objects.$container.hasClass('editable')?'edit':'view';
 
         let pollDataString = decodeURIComponent(_this.objects.$container.data('poll-data') || '') || '{}';
-
-        console.log('POLL', new Poll(JSON.parse(pollDataString)));
 
         _this.data.poll = JSON.parse(pollDataString);
         _this.data.rawPoll = rawPoll;
