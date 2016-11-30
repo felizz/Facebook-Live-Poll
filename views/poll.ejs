@@ -34,6 +34,14 @@
                 </div>
                 </li>
             </div>
+
+            <div id="header__menu_right">
+                <a class="item" href="#">Donate</a>
+                <div class="item avatar">
+                    <img src="<%= poll._owner.avatar %>" alt="" height="28"/>
+                </div>
+                </li>
+            </div>
         </div>
 
         <div id="main">
@@ -54,7 +62,7 @@
                                 <div class="menu">
                                     <div class="info">
                                         <div class="header">
-                                            <span class="meta creator"><%- poll.owner_id%></span>
+                                            <span class="meta creator"><%- poll._owner.name %></span>
                                         </div>
 
                                         <div class="body">
@@ -137,7 +145,7 @@
 
                                     <p> Note </p>
                                     <p> - Duration: 15 minutes </p>
-
+                                    <%- JSON.stringify(poll) %>
                                     <ul class="sn timeline">
                                         <li class="item">
                                             <div class="indicator number">1</div>
@@ -167,6 +175,18 @@
                                                     <p class="quote">
                                                         Important: The Server URL and Stream Key can only be used for a single Live preview/post connection. You must use the same URL and key to preview and post. That is, you cannot preview, stop the stream, and then resume at a later time. The URL and Key also expire 24 hours after creation or 4 hours within the preview.
                                                     </p>
+
+                                                    <form action="" class="form" id="form_setup_stream">
+                                                        <div class="form-group">
+                                                            <label for="form_setup_stream__input_server_url" id="form_setup_stream__label_server_url">Server URL</label>
+                                                            <input type="text" class="form-control" id="form_setup_stream__input_server_url" placeholder="URL"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="form_setup_stream__input_stream_key" id="form_setup_stream__label_stream_key">Stream Key</label>
+                                                            <input type="text" class="form-control" id="form_setup_stream__input_stream_key" placeholder="Key"/>
+                                                            <button class="sn btn" id="form_setup_stream__submit">Save</button>
+                                                        </div>
+                                                    </form>
 
                                                     <p class="text-center">
                                                         <img src='./../../images/demo/modules/editor/instructions.image-3.png' alt="">
