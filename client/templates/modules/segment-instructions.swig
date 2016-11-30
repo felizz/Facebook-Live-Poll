@@ -55,6 +55,18 @@
                                 Important: The Server URL and Stream Key can only be used for a single Live preview/post connection. You must use the same URL and key to preview and post. That is, you cannot preview, stop the stream, and then resume at a later time. The URL and Key also expire 24 hours after creation or 4 hours within the preview.
                             </p>
 
+                            <form action="" class="form" id="form_setup_stream">
+                                <div class="form-group">
+                                    <label for="form_setup_stream__input_server_url" id="form_setup_stream__label_server_url">Server URL</label>
+                                    <input type="text" class="form-control" id="form_setup_stream__input_server_url" placeholder="URL"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="form_setup_stream__input_stream_key" id="form_setup_stream__label_stream_key">Stream Key</label>
+                                    <input type="text" class="form-control" id="form_setup_stream__input_stream_key" placeholder="Key"/>
+                                    <button class="sn btn" id="form_setup_stream__submit">Save</button>
+                                </div>
+                            </form>
+
                             <p class="text-center">
                                 <img src='./../../images/demo/modules/editor/instructions.image-3.png' alt="">
                             </p>
