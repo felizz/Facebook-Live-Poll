@@ -386,15 +386,19 @@ module.exports = function(sandbox){
 
         let requestedData = _this.transformData(_this.data.rawPoll);
 
-        $.ajax({
-            type: 'POST',
-            url: '/api/v1/poll/create',
-            data: JSON.stringify(requestedData),
-            contentType: "application/json; charset=utf-8",
-            done: (response) => {
-
-            }
-        })
+        $
+            .ajax({
+                type: 'POST',
+                url: '/api/v1/poll/create',
+                data: JSON.stringify(requestedData),
+                contentType: "application/json; charset=utf-8",
+            })
+            .done((response) => {
+                console.log('response', response);
+                if(response._id){
+                    window.location.href = '/poll/' + response._id;
+                }
+            })
     }
 
     _this.transformData = (data) => {
