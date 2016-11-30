@@ -432,8 +432,7 @@ module.exports = function(sandbox){
             .ajax({
                 type: 'GET',
                 url: '/api/v1/poll/'+pollId+'/reactions-count',
-                data: JSON.stringify(requestedData),
-                contentType: "application/json; charset=utf-8",
+                data: requestedData
             })
             .done((response) => {
                 console.log('reaction success response', response);
