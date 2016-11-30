@@ -12,7 +12,8 @@ module.exports = function(sandbox){
             $modal = bootbox.dialog({
             title: 'Login to create<br/> your first live poll',
             message: swig.render(template),
-            className: 'modal-login'
+            className: 'modal-login',
+            closeButton: false
         })
     }
 
