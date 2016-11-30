@@ -6,6 +6,7 @@ var config = require('utils/config');
 var logger = require('utils/logger');
 var Poll = require('../models/poll');
 var DatabaseError = require('infra/errors/database-error');
+var RecordNotFoundError = require('infra/errors/record-not-found-error');
 var request = require('request');
 var serviceUser = require('./user');
 
@@ -47,7 +48,7 @@ var servicePoll = {
 
         Poll
             .findOne({ _id: pollId })
-            .populate('_owner')
+            .populate('_owner', '_id name avatar')
             .exec(function (err, poll) {
                 return callback(err, poll);
             });
@@ -71,6 +72,10 @@ var servicePoll = {
         Poll.findById(pollId, function (err, poll) {
             if(err){
                 return callback(err);
+            }
+
+            if(!poll.fb_video_id){
+                return callback(new RecordNotFoundError('Video Id not set'));
             }
 
             serviceUser.getUserInfoById(poll._owner, function getUserCallback (err, owner){

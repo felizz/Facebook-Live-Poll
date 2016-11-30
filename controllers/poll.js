@@ -23,6 +23,8 @@ var NodeCache = require('node-cache');
 var fbCache = new NodeCache();
 var CACHING_TTL = 4; //seconds
 
+var RecordNotFoundError = require('infra/errors/record-not-found-error');
+
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -200,6 +202,11 @@ var poll = {
             if (err || !cachedCountObject) {
                 servicePoll.getReactionsCountFromFacebook(pollId, function getPollCallback(err, countObject) {
                     if (err || !countObject) {
+                        
+                        if(err instanceof RecordNotFoundError){
+                            return apiErrors.UNPROCESSABLE_ENTITY.new('Unable to get reaction count. Check if Video Id is set').sendWith(res);
+                        }
+
                         return apiErrors.INTERNAL_SERVER_ERROR.new().sendWith(res);
                     }
 
