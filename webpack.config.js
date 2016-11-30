@@ -40,7 +40,7 @@ var config = {
                 // loader : 'css-loader!less-loader'
             }, {
                 test : /\.(woff|woff2|eot|ttf|svg)(\?.*$|$)$/,
-                loader : 'file-loader?name=./assets/fonts/[name].[ext]?hash=[hash]'
+                loader : 'file-loader?name=./fonts/[name].[ext]?hash=[hash]'
             }, {
                 test : /\.(gif|jpg|png)(\?.*$|$)$/,
                 loader : 'file-loader?name=./images/[path][name].[ext]?hash=[hash]&context=./client/images',

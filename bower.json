@@ -26,7 +26,8 @@
     "swig": "^1.4.2",
     "urijs": "^1.18.2",
     "ua-parser-js": "^0.7.11",
-    "dropzone": "~4.3.0"
+    "dropzone": "~4.3.0",
+    "font-awesome": "fontawesome#~4.7.0"
   },
   "overrides": {
     "scaleapp": {

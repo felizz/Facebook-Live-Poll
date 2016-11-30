@@ -95,6 +95,7 @@ module.exports = function(sandbox){
 
     _this.render = () => {
         _this.renderLayout(_this.data.currentLayoutId);
+        _this.renderUsedReactionsCounter();
     }
 
     _this.bindPublishEvents = () => {
@@ -231,10 +232,8 @@ module.exports = function(sandbox){
                     url: '/api/v1/poll/upload-image',
                     autoProcessQueue: true,
                     clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage1)[0],
-                    thumbnail: (file, dataUrl) => {
-                        _this.objects.$container.find(_this.DOMSelectors.image1).css({
-                            backgroundImage: 'url('+ dataUrl + ')'
-                        });
+                    addedfile: (file) => {
+                        _this.objects.$container.find(_this.DOMSelectors.image1).addClass('loading');
                     },
                     success: (file, response) => {
                         if(_this.data.rawPoll
@@ -243,6 +242,13 @@ module.exports = function(sandbox){
                         && response.url){
                             _this.data.rawPoll.images.image1 = response.url
                         }
+
+                        _this.objects.$container.find(_this.DOMSelectors.image1)
+                            .css({
+                                backgroundImage: 'url('+ response.url + ')'
+                            })
+                            .removeClass('loading')
+                        ;
                     }
                 });
                 _this.objects.$container.find(_this.DOMSelectors.image2).dropzone({
@@ -254,10 +260,8 @@ module.exports = function(sandbox){
                     url: '/api/v1/poll/upload-image',
                     autoProcessQueue: true,
                     clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage2)[0],
-                    thumbnail: (file, dataUrl) => {
-                        _this.objects.$container.find(_this.DOMSelectors.image2).css({
-                            backgroundImage: 'url('+ dataUrl + ')'
-                        });
+                    addedfile: (file) => {
+                        _this.objects.$container.find(_this.DOMSelectors.image2).addClass('loading');
                     },
                     success: (file, response) => {
                         if(_this.data.rawPoll
@@ -266,6 +270,13 @@ module.exports = function(sandbox){
                             && response.url){
                             _this.data.rawPoll.images.image2 = response.url
                         }
+
+                        _this.objects.$container.find(_this.DOMSelectors.image2)
+                            .css({
+                                backgroundImage: 'url('+ response.url + ')'
+                            })
+                            .removeClass('loading')
+                        ;
                     }
                 });
                 break;
@@ -279,18 +290,23 @@ module.exports = function(sandbox){
                     url: '/api/v1/poll/upload-image',
                     autoProcessQueue: true,
                     clickable: _this.objects.$container.find(_this.DOMSelectors.triggerBackground)[0],
-                    thumbnail: (file, dataUrl) => {
-                        _this.objects.$container.find(_this.DOMSelectors.background).css({
-                            backgroundImage: 'url('+ dataUrl + ')'
-                        })
+                    addedfile: (file) => {
+                        _this.objects.$container.find(_this.DOMSelectors.background).addClass('loading');
                     },
                     success: (file, response) => {
-                if(_this.data.rawPoll
-                    && _this.data.rawPoll.images
-                    && response
-                    && response.url){
-                    _this.data.rawPoll.images.background = response.url
-                }
+                        if(_this.data.rawPoll
+                            && _this.data.rawPoll.images
+                            && response
+                            && response.url){
+                            _this.data.rawPoll.images.background = response.url
+                        }
+
+                        _this.objects.$container.find(_this.DOMSelectors.background)
+                            .css({
+                                backgroundImage: 'url('+ response.url + ')'
+                            })
+                            .removeClass('loading')
+                        ;
             }
                 });
                 _this.objects.$container.find(_this.DOMSelectors.image1).dropzone({
@@ -302,10 +318,8 @@ module.exports = function(sandbox){
                     url: '/api/v1/poll/upload-image',
                     autoProcessQueue: true,
                     clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage1)[0],
-                    thumbnail: (file, dataUrl) => {
-                        _this.objects.$container.find(_this.DOMSelectors.image1).css({
-                            backgroundImage: 'url('+ dataUrl + ')'
-                        });
+                    addedfile: (file) => {
+                        _this.objects.$container.find(_this.DOMSelectors.image1).addClass('loading');
                     },
                     success: (file, response) => {
                         if(_this.data.rawPoll
@@ -314,6 +328,13 @@ module.exports = function(sandbox){
                             && response.url){
                             _this.data.rawPoll.images.image1 = response.url
                         }
+
+                        _this.objects.$container.find(_this.DOMSelectors.image1)
+                            .css({
+                                backgroundImage: 'url('+ response.url + ')'
+                            })
+                            .removeClass('loading')
+                        ;
                     }
                 });
                 _this.objects.$container.find(_this.DOMSelectors.image2).dropzone({
@@ -325,10 +346,8 @@ module.exports = function(sandbox){
                     url: '/api/v1/poll/upload-image',
                     autoProcessQueue: true,
                     clickable: _this.objects.$container.find(_this.DOMSelectors.triggerImage2)[0],
-                    thumbnail: (file, dataUrl) => {
-                        _this.objects.$container.find(_this.DOMSelectors.image2).css({
-                            backgroundImage: 'url('+ dataUrl + ')'
-                        });
+                    addedfile: (file) => {
+                        _this.objects.$container.find(_this.DOMSelectors.image2).addClass('loading');
                     },
                     success: (file, response) => {
                         if(_this.data.rawPoll
@@ -337,6 +356,13 @@ module.exports = function(sandbox){
                             && response.url){
                             _this.data.rawPoll.images.image2 = response.url
                         }
+
+                        _this.objects.$container.find(_this.DOMSelectors.image2)
+                            .css({
+                                backgroundImage: 'url('+ response.url + ')'
+                            })
+                            .removeClass('loading')
+                        ;
                     }
                 });
                 break;
@@ -377,6 +403,45 @@ module.exports = function(sandbox){
         });
         
         _this.objects.$stageBody.html(html);
+    }
+
+    _this.renderUsedReactionsCounter = () => {
+        if(!_this.objects.$menuInfo.length){
+            return false;
+        }
+
+        let $usedReactionsCounter = _this.objects.$menuInfo.find(_this.DOMSelectors.usedReactionsCounter);
+
+        if(!$usedReactionsCounter.length){
+            return false;
+        }
+
+        let pollId = $usedReactionsCounter.data('poll-id'),
+            fbVideoId = $usedReactionsCounter.data('fb-video-id')
+        ;
+
+        if(!fbVideoId){
+            return false;
+        }
+
+        let requestedData = {
+            poll_id: pollId
+        }
+
+        $
+            .ajax({
+                type: 'GET',
+                url: '/api/v1/poll/'+pollId+'/reactions-count',
+                data: requestedData
+            })
+            .done((response) => {
+                console.log('reaction success response', response);
+                $usedReactionsCounter.html(123);
+            })
+            .fail((response) => {
+                $usedReactionsCounter.html('');
+            })
+        ;
     }
 
     _this.removeLayout = () => {}
@@ -453,7 +518,9 @@ module.exports = function(sandbox){
             reactionsList2: '.object.reactions-list[data-target-object="reaction-2"]',
             inputQuestion: 'textarea.object.question',
             inputText1: 'input.object.input.title-1',
-            inputText2: 'input.object.input.title-2'
+            inputText2: 'input.object.input.title-2',
+
+            usedReactionsCounter: '.reaction-used-counter'
         };
 
         _this.objects = {};
@@ -463,6 +530,7 @@ module.exports = function(sandbox){
         _this.objects.$buttonPublish = _this.objects.$container.find('[data-action=publish]');
         _this.objects.$stage = _this.objects.$container.find('.stage');
         _this.objects.$stageBody = _this.objects.$stage.children('.body');
+        _this.objects.$menuInfo = _this.objects.$container.find('.menu .info');
 
         if(!_this.objects.$container.length){
             return false;
