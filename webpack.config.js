@@ -78,7 +78,7 @@ var config = {
     plugins : [
         new HtmlWebpackPlugin({
             title: 'Index',
-            filename: 'index.html',
+            filename: 'index-static.html',
             template: APP_DIR + '/templates/index.swig'
         }),
         /*new webpack.ProvidePlugin({

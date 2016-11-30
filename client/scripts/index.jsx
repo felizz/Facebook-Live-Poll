@@ -17,6 +17,13 @@ if($editors.length){
     })
 }
 
+if($('#segment_instructions').length){
+    application.register('moduleInstructions', require('./modules/instructions'));
+}
+
+if($('body.page-landing').length){
+    application.register('pageLanding', require('./pages/landing'));
+}
 
 $(function () {
     application.start();
