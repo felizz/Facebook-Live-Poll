@@ -81,7 +81,9 @@
                                                             Reaction used
                                                         </div>
                                                         <div class="body">
-                                                            <i class="fa fa-spin fa-refresh"></i>
+                                                            <span class="reaction-used-counter" data-poll-id="<%- poll._id%>" data-fb-video-id="<%- poll.fb_video_id%>">
+                                                                <i class="fa fa-spin fa-refresh"></i>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -91,7 +93,7 @@
                                                             Facebook Post ID
                                                         </div>
                                                         <div class="body">
-                                                            <!--10154826431226995-->
+                                                            <%- poll.fb_video_id %>
                                                         </div>
                                                     </div>
 
@@ -100,7 +102,7 @@
                                                             Stream URL ID
                                                         </div>
                                                         <div class="body">
-                                                            <%- poll.stream_id %>
+                                                            <%- poll.fb_stream_url %>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -122,10 +124,10 @@
                         <div class="sn segment" id="segment_instructions">
                             <div class="body">
                                 <p>To track your facebook video reactions, please enter your facebook video ID below:</p>
-                                <form action="" class="sn form" id="form_video_id">
+                                <form action="" class="sn form" id="form_video_id" data-poll-id="<%- poll._id %>">
                                     <div class="form-group">
                                         <label for="form_video_id__input_video_id" id="form_video_id__label_video_id">Video ID</label>
-                                        <input type="text" class="form-control" id="form_video_id__input_video_id" placeholder="ID"/>
+                                        <input type="text" class="form-control" id="form_video_id__input_video_id" name="fb_video_id" placeholder="ID"/>
                                         <button class="sn btn" id="form_video_id__submit">Save</button>
                                     </div>
                                 </form>
@@ -145,7 +147,6 @@
 
                                     <p> Note </p>
                                     <p> - Duration: 15 minutes </p>
-                                    <%- JSON.stringify(poll) %>
                                     <ul class="sn timeline">
                                         <li class="item">
                                             <div class="indicator number">1</div>
@@ -176,14 +177,14 @@
                                                         Important: The Server URL and Stream Key can only be used for a single Live preview/post connection. You must use the same URL and key to preview and post. That is, you cannot preview, stop the stream, and then resume at a later time. The URL and Key also expire 24 hours after creation or 4 hours within the preview.
                                                     </p>
 
-                                                    <form action="" class="form" id="form_setup_stream">
+                                                    <form action="" class="form" id="form_setup_stream" data-poll-id="<%- poll._id%>">
                                                         <div class="form-group">
                                                             <label for="form_setup_stream__input_server_url" id="form_setup_stream__label_server_url">Server URL</label>
-                                                            <input type="text" class="form-control" id="form_setup_stream__input_server_url" placeholder="URL"/>
+                                                            <input type="text" class="form-control" id="form_setup_stream__input_server_url" name="fb_stream_url" placeholder="URL"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="form_setup_stream__input_stream_key" id="form_setup_stream__label_stream_key">Stream Key</label>
-                                                            <input type="text" class="form-control" id="form_setup_stream__input_stream_key" placeholder="Key"/>
+                                                            <input type="text" class="form-control" id="form_setup_stream__input_stream_key" name="fb_stream_key" placeholder="Key"/>
                                                             <button class="sn btn" id="form_setup_stream__submit">Save</button>
                                                         </div>
                                                     </form>
