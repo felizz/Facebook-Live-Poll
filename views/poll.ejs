@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
     <head>
-        <title>Anhdong.vn - Tạo ảnh động, ảnh gif online miễn phí từ video</title>
-        <meta name="description" content="Trang web đầu tiên tại Việt Nam cho phép tạo ảnh động, ảnh gif miễn phí từ video"/>
-
+        <title>PollSimply - Free tool for creating Facebook live  polls with reactions</title>
+        <meta property="og:title" content="PollSimply - Free tool for creating Facebook live  polls with reactions"/>
+        <meta property="og:description"
+              content="Make your first live poll on Facebook here"/>
         <link rel="stylesheet" type="text/css" href="/styles/main.css">
 
         <script>
@@ -122,11 +123,11 @@
 
                         <div class="sn segment" id="segment_instructions">
                             <div class="body">
-                                <p>To track your facebook video reactions, please enter your facebook video ID below:</p>
+                                <p>To track your facebook reactions count, please enter your Facebook Video ID below:</p>
                                 <form action="" class="sn form" id="form_video_id" data-poll-id="<%- poll._id %>">
                                     <div class="form-group">
                                         <label for="form_video_id__input_video_id" id="form_video_id__label_video_id">Video ID</label>
-                                        <input type="text" class="form-control" id="form_video_id__input_video_id" name="fb_video_id" placeholder="ID"/>
+                                        <input type="text" class="form-control" id="form_video_id__input_video_id" name="fb_video_id" placeholder="Enter your Facebook Video Id here"/>
                                         <button class="sn btn" id="form_video_id__submit">Save</button>
                                     </div>
                                 </form>
@@ -138,14 +139,22 @@
                                         <i class="sn icon caret down"></i>
                                     </div>
                                     <div class="title">
-                                        See detailed instructions for setting up your first Facebook Live Poll
+                                        Click here to see detailed instructions for setting up your first Facebook Live Poll
                                     </div>
                                 </div>
                                 <div class="body">
-                                    <h3>Next step to set up Live Polling on Facebook</h3>
+                                    <h3><br/>Next step to set up Live Polling on Facebook</h3>
+                                    <p><br/></p>
 
-                                    <p> Note </p>
-                                    <p> - Duration: 15 minutes </p>
+                                    <p> Before you starts: </p>
+                                    <ul>
+                                        <li>This guide is only applicable for the owner of this poll. If you want to have live polling on your own Facebook page, <a href="/">create your own poll here</a></li>
+                                        <li>This guide assume you have OBS (Open Broadcaster Software) installed on your computer. If you don't have it yet, <a href="https://obsproject.com/download">download</a> it now to save time. You will need it at step 2 of this guide.</li>
+                                        <li>Duration expected : 20 minutes</li>
+                                    </ul>
+
+                                    <p><br/></p>
+
                                     <ul class="sn timeline">
                                         <li class="item">
                                             <div class="indicator number">1</div>
@@ -161,11 +170,7 @@
                                                     </p>
 
                                                     <p>
-                                                        Then you need to copy the Stream Key in the window that appears. Save it below:
-                                                    </p>
-
-                                                    <p>
-                                                        -- Box for saving Stream key here --
+                                                        Then you need to copy the Stream Key in the window that appears. Save it for later use.
                                                     </p>
 
                                                     <p class="text-center">
@@ -175,18 +180,6 @@
                                                     <p class="quote">
                                                         Important: The Server URL and Stream Key can only be used for a single Live preview/post connection. You must use the same URL and key to preview and post. That is, you cannot preview, stop the stream, and then resume at a later time. The URL and Key also expire 24 hours after creation or 4 hours within the preview.
                                                     </p>
-
-                                                    <form action="" class="form" id="form_setup_stream" data-poll-id="<%- poll._id%>">
-                                                        <div class="form-group">
-                                                            <label for="form_setup_stream__input_server_url" id="form_setup_stream__label_server_url">Server URL</label>
-                                                            <input type="text" class="form-control" id="form_setup_stream__input_server_url" name="fb_stream_url" placeholder="URL"/>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="form_setup_stream__input_stream_key" id="form_setup_stream__label_stream_key">Stream Key</label>
-                                                            <input type="text" class="form-control" id="form_setup_stream__input_stream_key" name="fb_stream_key" placeholder="Key"/>
-                                                            <button class="sn btn" id="form_setup_stream__submit">Save</button>
-                                                        </div>
-                                                    </form>
 
                                                     <p class="text-center">
                                                         <img src='./../../images/demo/modules/editor/instructions.image-3.png' alt="">
@@ -198,9 +191,13 @@
                                                         Copy only the Video Id (normally is the digit-only string) from the link and paste it below:
                                                     </p>
 
-                                                    <p>
-                                                        -- Box for saving Video Id here --
-                                                    </p>
+                                                    <form action="" class="form" id="form_setup_stream" data-poll-id="<%- poll._id%>">
+                                                        <div class="form-group">
+                                                            <label for="form_setup_stream__input_stream_key" id="form_setup_stream__label_stream_key">Video Id</label>
+                                                            <input type="text" class="form-control" id="form_setup_stream__input_stream_key" name="fb_stream_key" placeholder="Enter your Facebook Video Id Here"/>
+                                                            <button class="sn btn" id="form_setup_stream__submit">Save</button>
+                                                        </div>
+                                                    </form>
 
                                                     <p class="text-center">
                                                         <img src='./../../images/demo/modules/editor/instructions.image-3.5.png' alt="">
@@ -223,12 +220,12 @@
 
 
                                                     <p>
-                                                        1. If you haven’t download and install OBS, do it now through <a href="https://obsproject.com/download">this link</a>.
+                                                        1. Assuming you have downloaded the OBS software (refer to <i>Before you starts</i> section). Now is the time to install it to your computer.
                                                     </p>
 
                                                     <p>
                                                         2. Once OBS Software is installed, go to Settings (or Preferences in Mac), click on “Stream” in the left menu.<br/>
-                                                        Select “Streaming Services” as the Stream Type and “Facebook Live” as the Service. Enter --Stream Key-- as the Stream key.
+                                                        Select “Streaming Services” as the Stream Type and “Facebook Live” as the Service. Enter the Stream Key you saved in <i>Step 1</i> as the Stream key.
                                                     </p>
 
                                                     <p class="text-center">
@@ -236,7 +233,7 @@
                                                     </p>
 
                                                     <p>
-                                                        Then click on Video on the left menu. Enter the Width & Height of the Video as --WidthxHeight--.
+                                                        Then click on Video on the left menu. Enter the Width & Height of the Video as <%=poll.width%>x<%=poll.height%>.
                                                     </p>
 
                                                     <p class="text-center">
@@ -264,7 +261,7 @@
                                                     </p>
 
                                                     <p>
-                                                        In the following dialog, enter --Stream URL-- as Stream URL, --WidthxHeigh-- as Width & Height separately.
+                                                        In the following dialog, enter <%if (poll.stream_id){%> <%=WEB_PREFIX%>/s/<%=poll.stream_id%><%} else {%> (private link)<%}%> as Stream URL, <%=poll.width%>x<%=poll.height%> as Width & Height separately.
                                                     </p>
 
                                                     <p class="text-center">
