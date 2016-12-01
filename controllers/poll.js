@@ -109,13 +109,15 @@ var poll = {
                 return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
             }
 
-            if(!req.user || !(req.user._id == pollWithOwnerInfo._owner._id)){
+            var isPollOwner = req.user ? req.user._id == pollWithOwnerInfo._owner._id : false;
+
+            if(!isPollOwner){
                 pollWithOwnerInfo.stream_id = null;
             }
 
             logger.debug('Poll with Owner Info = ' + JSON.stringify(pollWithOwnerInfo));
 
-            return res.render('poll', {poll : pollWithOwnerInfo,req: req});
+            return res.render('poll', {poll : pollWithOwnerInfo,req: req, isPollOwner: isPollOwner});
         });
     },
 

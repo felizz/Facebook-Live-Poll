@@ -26,19 +26,21 @@
 <link href="/html/css/home.css" rel="stylesheet" type="text/css"/>
 <body class="page-editor">
 <div id="header">
-    <a id="header__logo" href="#"></a>
+    <a id="header__logo" href="/"></a>
 
     <div id="header__menu_left">
-        <a class="item" href="#">Home</a>
-        <div class="item">
-            <div class="sn dropdown">
-                <div class="text">Explore</div>
-                <div class="menu">
-                    <a href="#" class="item">Item 1</a>
-                </div>
-            </div>
+        <a class="item" href="/">Create Poll</a>
+    </div>
+
+    <div id="header__menu_right">
+        <a class="item" href="https://donorbox.org/pollsimply" target="_blank">Donate</a>
+        <%if (req.user){%>
+        <div class="item avatar">
+            <img src="<%= req.user.avatar %>" alt="" height="28"/>
         </div>
-        </li>
+        <%} else {%>
+        <a class="item" href="/">Login</a>
+        <%}%>
     </div>
 </div>
 
