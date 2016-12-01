@@ -69,7 +69,7 @@ var poll = {
         var _owner = req.isAuthenticated() ? req.user._id : 'SySwjlXzl';  //Fixme for testing purpose
         var layout = req.body.layout ?  parseInt(req.body.layout) : servicePoll.POLL_LAYOUT.DEFAULT;
 
-        servicePoll.createFixedSizePoll(_owner, layout, req.body.reactions, req.body.texts, req.body.images, function createPollCallback(err, poll){
+        servicePoll.createPollWithDefaultDimension(_owner, layout, req.body.reactions, req.body.texts, req.body.images, function createPollCallback(err, poll){
 
             if (err) {
                 logger.prettyError(err);

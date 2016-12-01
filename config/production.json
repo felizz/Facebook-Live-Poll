@@ -1,7 +1,7 @@
 {
   "app_name": "facebook_live_poll",
   "log_level": "debug",
-  "web_prefix": "http://4wens.com",
+  "web_prefix": "http://pollsimply.com",
 
   "database": {
     "name": "facebook_live_poll"

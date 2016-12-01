@@ -7,7 +7,7 @@ router.get('/', controllerIndex.renderHomePage);
 
 router.get('/poll/:poll_id', controllerPoll.renderPollPage);
 
-router.get('/stream/:stream_id', controllerPoll.renderStreamPage);
+router.get('/s/:stream_id', controllerPoll.renderStreamPage);
 
 module.exports = router;
 

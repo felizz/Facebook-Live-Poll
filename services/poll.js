@@ -16,13 +16,17 @@ var POLL_LAYOUT = {
   FULL_SINGLE_BACKGROUND: 1
 };
 
+var DEFAULT_WIDHT = 600, DEFAULT_HEIGHT=340;
+
 var servicePoll = {
     POLL_LAYOUT : POLL_LAYOUT,
 
-    createFixedSizePoll : function (_owner, layout, reactions, texts, images, callback){
+    createPollWithDefaultDimension : function (_owner, layout, reactions, texts, images, callback){
         var newPoll = new Poll({
             _owner: _owner,
             layout : layout,
+            width: DEFAULT_WIDHT,
+            height: DEFAULT_HEIGHT,
             reactions: reactions,
             texts : texts,
             images: images

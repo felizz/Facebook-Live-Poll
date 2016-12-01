@@ -46,12 +46,7 @@
 
         <div id="main">
             <div class="header">
-                <div class="container">
-                    <div class="col-md-8 col-md-offset-2 text-center">
-                        <h2>Create your own Facebook Live Poll</h2>
-                        <h3>A successful marketing plan relies heavily on the pulling-power of advertising copy. Writing result-oriented ad copy is difficult,</h3>
-                    </div>
-                </div>
+                <p><br/></p>
             </div>
 
             <div class="body">
@@ -73,7 +68,7 @@
                                                             Poll size
                                                         </div>
                                                         <div class="body">
-                                                            600x375
+                                                            <%=poll.width%>x<%=poll.height%>
                                                         </div>
                                                     </div>
                                                     <div class="cell reaction-used">
@@ -88,21 +83,27 @@
                                                 <div class="row">
                                                     <div class="cell facebook-post-id">
                                                         <div class="header">
-                                                            Facebook Post ID
+                                                            Facebook Video Id
                                                         </div>
                                                         <div class="body">
-                                                            <%- poll.fb_video_id %>
+                                                            <%if (poll.fb_video_id){%>
+                                                                <%- poll.fb_video_id %>
+                                                            <%} else {%>
+                                                                (please set it below)
+                                                            <%}%>
                                                         </div>
                                                     </div>
 
+                                                    <% if (poll.stream_id){%>
                                                     <div class="cell stream-url-id">
                                                         <div class="header">
-                                                            Stream URL ID
+                                                            Stream URL
                                                         </div>
                                                         <div class="body">
-                                                            <%- poll.fb_stream_url %>
+                                                            <%=WEB_PREFIX%>/s/<%= poll.stream_id %>
                                                         </div>
                                                     </div>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                         </div>
