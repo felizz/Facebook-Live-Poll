@@ -6,7 +6,7 @@ module.exports = function(sandbox){
     _this.show = () => {
         let template = multiline(() => {/*!@preserve
             <p>PollSimply offer free tool to create Live Poll on Facebook. Please Login by Facebook to enjoy those features.</p>
-            <p>We will keep this tool remain free forever so if you like it please consider donating to us at the top right corner!</p>
+            <p>We will keep those features remain free forever so if you like it please consider donating to us at the top right corner!</p>
              <a href="/user/login" class="btn btn-primary">Login by Facebook</a>
         */console.log}),
             $modal = bootbox.dialog({
