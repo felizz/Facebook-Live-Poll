@@ -1,7 +1,8 @@
 var plan = require('flightplan');
 
-var appName = 'anhdong';
-var username = 'addeploy';
+var appName = 'livepoll';
+var username = 'lpdeploy';
+var buildDirectory = 'public';
 
 var tmpDir = appName + '_' + new Date().toISOString().replace(/T/g, '_').replace(/:/g, '-').replace(/\./g, '_').replace(/Z/g, '');
 
@@ -17,18 +18,27 @@ plan.target('staging', [
 
 plan.target('production', [
     {
-        host: 'anhdong.vn',
+        host: 'pollsimply.com',
         username: username,
-        privateKey: '/var/lib/jenkins/.ssh/id_rsa',
+        //privateKey: '/var/lib/jenkins/.ssh/id_rsa',
         agent: process.env.SSH_AUTH_SOCK
     }
 ]);
 
 // run commands on localhost
 plan.local(function(local) {
+    local.log('Build the directory');
+    local.exec('npm update');
+    local.exec('bower update');
+    local.exec('npm run webpack');
+
     local.log('Copying files to remote hosts');
     var gitFiles = local.exec('git ls-files', {silent: true});
     local.transfer(gitFiles, '/tmp/' + tmpDir);
+
+    var buildFiles = local.exec('find ' + buildDirectory, { silent: true });
+    local.transfer(buildFiles, '/tmp/' + tmpDir);
+
 });
 
 // Deploy on remote server
