@@ -53,7 +53,7 @@
                                 <div class="menu">
                                     <div class="info">
                                         <div class="header">
-                                            <span class="meta creator"><%- poll._owner.name %></span>
+                                            <span class="meta creator"><% if (poll._owner){ %><%- poll._owner.name %><% } %></span>
                                         </div>
 
                                         <div class="body">
