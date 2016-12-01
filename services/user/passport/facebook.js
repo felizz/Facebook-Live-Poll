@@ -24,10 +24,18 @@ module.exports = function(passport) {
 					return done(err);
 				}
 
-				// if the user is found, then log them in
+				// if the user is found, then log them in, update their FB access token
 	            if (user) {
 					logger.info(`user ${profile.id} already exist `);
-	                return done(null, user); // user found, return that user
+					user.fb_access_token = access_token;
+
+					user.save(function(err) {
+						if (err){
+							return done(err);
+						}
+						return done(null, user); // user found, return that user
+					});
+
 	            } else {
 
 					var newUser = new User({
@@ -40,8 +48,9 @@ module.exports = function(passport) {
 
 					// save our user to the database
 	                newUser.save(function(err) {
-	                    if (err)
-	                        throw err;
+	                    if (err){
+							return done(err);
+						}
 						logger.info(`Successfuly create new user ${profile.id} `);
 	                    // if successful, return the new user
 	                    return done(null, newUser);
