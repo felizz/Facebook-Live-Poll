@@ -68,7 +68,7 @@
                                                             Poll size
                                                         </div>
                                                         <div class="body">
-                                                            600x375
+                                                            <%=poll.width%>x<%=poll.height%>
                                                         </div>
                                                     </div>
                                                     <div class="cell reaction-used">
@@ -86,7 +86,11 @@
                                                             Facebook Video Id
                                                         </div>
                                                         <div class="body">
-                                                            <%- poll.fb_video_id %>
+                                                            <%if (poll.fb_video_id){%>
+                                                                <%- poll.fb_video_id %>
+                                                            <%} else {%>
+                                                                (please set it below)
+                                                            <%}%>
                                                         </div>
                                                     </div>
 
