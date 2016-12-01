@@ -635,8 +635,6 @@ module.exports = function(sandbox){
                             <div class="object reaction reaction-1" data-reaction-value="{% if (poll.images && poll.images[0]) %}{{poll.reactions[0]}}{% else %}haha{% endif %}"></div>
                             <div class="object reaction reaction-2" data-reaction-value="{% if (poll.images && poll.images[1]) %}{{poll.reactions[1]}}{% else %}like{% endif %}"></div>
                             <div class="object text question">{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}</div>
-                            <div class="object reactions-count reactions-count-1">123</div>
-                            <div class="object reactions-count reactions-count-2">456</div>
                         </div>
                     {% if mode == 'edit' %}
                         <div class="layer controls">
