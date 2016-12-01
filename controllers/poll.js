@@ -18,7 +18,7 @@ var shortid = require('shortid');
 var multer  = require('multer');
 var passport = require('passport');
 var config = require('utils/config');
-
+var fs = require('fs');
 var NodeCache = require('node-cache');
 var fbCache = new NodeCache();
 var CACHING_TTL = 4; //seconds
@@ -88,7 +88,14 @@ var poll = {
                 return apiErrors.UNPROCESSABLE_ENTITY.new('Error during processing file upload.').sendWith(res);
             }
 
-            mediaService.uploadImageToS3(IMG_DIR + req.file.filename, req.file.filename, function uploadS3Callback(err, url){
+            var localFile = IMG_DIR + req.file.filename;
+            mediaService.uploadImageToS3(localFile, req.file.filename, function uploadS3Callback(err, url){
+                if (err) {
+                    logger.prettyError(err);
+                    return apiErrors.INTERNAL_SERVER_ERROR.new().sendWith(res);
+                }
+
+                fs.unlink(localFile);
                 return res.status(statusCodes.CREATED).send({url: url});
             });
         });
