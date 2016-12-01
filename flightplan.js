@@ -20,7 +20,7 @@ plan.target('production', [
     {
         host: 'pollsimply.com',
         username: username,
-        //privateKey: '/var/lib/jenkins/.ssh/id_rsa',
+        privateKey: '/Users/kyle/.ssh/id_rsa',
         agent: process.env.SSH_AUTH_SOCK
     }
 ]);
@@ -28,8 +28,6 @@ plan.target('production', [
 // run commands on localhost
 plan.local(function(local) {
     local.log('Build the directory');
-    local.exec('npm update');
-    local.exec('bower update');
     local.exec('npm run webpack');
 
     local.log('Copying files to remote hosts');
@@ -55,7 +53,7 @@ plan.remote(function(remote) {
 
     remote.sudo('ln -snf ~/' + tmpDir + ' ~/' + appName, {user: username});
 
-    remote.exec('PATH=/home/addeploy/.linuxbrew/bin:$PATH NODE_ENV=' + process.env.NODE_ENV + ' forever --uid ' + appName + ' --append ' + ' --workingDir ~/' + appName  + ' --sourceDir ~/' + appName + ' start bin/www');
+    remote.exec('NODE_ENV=' + process.env.NODE_ENV + ' PATH=$PATH ' + 'forever --uid ' + appName + ' --append ' + ' --workingDir ~/' + appName + ' --sourceDir ~/' + appName + ' start bin/www');
 
     remote.log('Deployment finished.');
 });
