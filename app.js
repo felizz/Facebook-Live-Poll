@@ -46,6 +46,8 @@ app.use('/', routes);
 app.use('/user', user);
 app.use('/api/v1/poll', poll);
 
+app.locals.WEB_PREFIX = config.web_prefix;
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

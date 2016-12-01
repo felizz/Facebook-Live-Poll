@@ -13,6 +13,10 @@ var Poll = new Schema({
     stream_id: {type: String},
 
     layout: {type: Number}, //servicePoll.POLL_LAYOUT
+    dimension: {
+      width : {type: Number},
+      height: {type: Number}
+    },
     reactions: [{type: String}],
     texts : [{type: String}],
     images: [{type: String}],

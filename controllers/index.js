@@ -19,5 +19,5 @@ module.exports = {
         else {
             return res.render('landing',{req: req});
         }
-    }
+}
 };

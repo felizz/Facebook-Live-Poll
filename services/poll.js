@@ -16,6 +16,11 @@ var POLL_LAYOUT = {
   FULL_SINGLE_BACKGROUND: 1
 };
 
+var DEFAULT_DIMENSION = {
+    width: 600,
+    height: 340
+};
+
 var servicePoll = {
     POLL_LAYOUT : POLL_LAYOUT,
 
