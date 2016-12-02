@@ -21,24 +21,7 @@
 
     </head>
     <body class="page-details">
-        <div id="header">
-            <a id="header__logo" href="/"></a>
-
-            <div id="header__menu_left">
-                <a class="item" href="/">Create Poll</a>
-            </div>
-
-            <div id="header__menu_right">
-                <a class="item" href="https://donorbox.org/pollsimply" target="_blank">Donate</a>
-                <%if (req.user){%>
-                <div class="item avatar">
-                    <img src="<%= req.user.avatar %>" alt="" height="28"/>
-                </div>
-                <%} else {%>
-                <a class="item" href="/">Login</a>
-                <%}%>
-            </div>
-        </div>
+    <% include partials/header.ejs %>
 
         <div id="main">
             <div class="header">
