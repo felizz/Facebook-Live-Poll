@@ -70,8 +70,8 @@ var servicePoll = {
     getReactionsCountFromFacebook: function(pollId, callback){
 
         //Retrieve PostId and Access token for Facebook API request
-        var fbPostId = '10155141000811840';
-        var fbAccessToken = 'EAACEdEose0cBAE5SxdSTIyQNbjv42FOm16O0KM4q766ecZAo8YUmZAUHS3zuw7WCmk2Quw69P9koEtMXAqSjOQPSarWPoLSbkvbdFIfWSaOrDEEv3cZA9ddRYXLbX9uMVBTC3iB2UlGZBUDRnZBrKNlvIhjs0x2ZCLvOWyWoxuywZDZD';
+        var fbPostId = null;
+        var fbAccessToken = null;
 
         Poll.findById(pollId, function (err, poll) {
             if(err){
