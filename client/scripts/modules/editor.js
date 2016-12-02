@@ -17,7 +17,6 @@ class Poll{
 }
 
 const rawPoll = {
-    title: '',
     layout: 1,
     reactions: {
         reaction1: 'haha',
@@ -87,7 +86,17 @@ let samplePoll2 = {
 
 
 const rawPollSchema = Joi.object().keys({
-    layout: Joi.number().integer().min(1).max(2)
+    layout: Joi.number().integer().min(1).max(2),
+    reactions: Joi.object().keys({
+        reaction1: Joi.string().valid(['haha', 'like', 'wow', 'sad', 'angry', 'love']),
+        reaction2: Joi.string().valid(['haha', 'like', 'wow', 'sad', 'angry', 'love'])
+    }),
+    texts: Joi.alternatives()
+        .when('layout', {is: 1, then: Joi.object().keys({text1: Joi.string().min(1).error(new Error("Please input the option #1's name")), text2: Joi.string().min(1).error(new Error("Please input the option #2's name"))})})
+        .when('layout', {is: 2, then: Joi.object().keys({question: Joi.string().min(1).error(new Error("Please input the question"))})}),
+    images: Joi.alternatives()
+        .when('layout', {is: 1, then: Joi.object().keys({image1: Joi.string().allow(''), image2: Joi.string().allow('')})})
+        .when('layout', {is: 2, then: Joi.object().keys({background: Joi.string().allow(''), image1: Joi.string().error(new Error("Please add the first picture")), image2: Joi.string().error(new Error("Please add the second picture"))})})
 });
 
 module.exports = function(sandbox){
@@ -95,7 +104,13 @@ module.exports = function(sandbox){
 
     _this.render = () => {
         _this.renderLayout(_this.data.currentLayoutId);
-        _this.renderReactionsCounts();
+        if(_this.data.isStreaming){
+            setInterval(()=>{
+                _this.renderReactionsCounts();
+            }, 4000);
+        } else {
+            _this.renderReactionsCounts();
+        }
     }
 
     _this.bindPublishEvents = () => {
@@ -492,23 +507,52 @@ module.exports = function(sandbox){
     _this.removeLayout = () => {}
 
     _this.publish = () => {
-        console.log('publish with following data', _this.transformData(_this.data.rawPoll));
+        return Joi.validate(_this.data.rawPoll, rawPollSchema, {allowUnknown: true}, (error, value) => {
+            if(error){
+                let message = '';
 
-        let requestedData = _this.transformData(_this.data.rawPoll);
-
-        $
-            .ajax({
-                type: 'POST',
-                url: '/api/v1/poll/create',
-                data: JSON.stringify(requestedData),
-                contentType: "application/json; charset=utf-8",
-            })
-            .done((response) => {
-                console.log('response', response);
-                if(response._id){
-                    window.location.href = '/poll/' + response._id;
+                if(error.message
+                && error.message.length){
+                    message = swig.render(_this.templates.validationError, {
+                        locals: {
+                            error: error
+                        }
+                    });
+                } else if(error.details
+                && error.details.length){
+                    message = swig.render(_this.templates.validationErrors, {
+                        locals: {
+                            errors: error.details
+                        }
+                    });
                 }
-            })
+
+                if(!message.length){
+                    message = 'There\'s error with what you input. Please check again';
+                }
+
+                return bootbox.alert(message);
+            }
+
+            console.log('publish with following data', _this.transformData(_this.data.rawPoll));
+
+            let requestedData = _this.transformData(_this.data.rawPoll);
+
+            $
+                .ajax({
+                    type: 'POST',
+                    url: '/api/v1/poll/create',
+                    data: JSON.stringify(requestedData),
+                    contentType: "application/json; charset=utf-8",
+                })
+                .done((response) => {
+                    console.log('response', response);
+                    if(response._id){
+                        window.location.href = '/poll/' + response._id;
+                    }
+                })
+            ;
+        });
     }
 
     _this.transformData = (data) => {
@@ -530,14 +574,6 @@ module.exports = function(sandbox){
         }
 
         return transformedData;
-    }
-
-    _this.validateData = (data) => {
-        if(!data.layout){
-            return false;
-        }
-
-        return true;
     }
 
     _this.init = (data) => {
@@ -670,12 +706,25 @@ module.exports = function(sandbox){
             reactionsCounts: multiline(() => {/*!@preserve
                 <div class="object reactions-count reactions-count-1">{{reactionsCounts[0]}}</div>
                 <div class="object reactions-count reactions-count-2">{{reactionsCounts[1]}}</div>
+            */console.log}),
+            validationError: multiline(() => {/*!@preserve
+                <ul>
+                    <li>{{error.message}}</li>
+                </ul>
+            */console.log}),
+            validationErrors: multiline(() => {/*!@preserve
+                <ul>
+                {% for error in errors %}
+                    <li>{{error.message}}</li>
+                {% endfor %}
+                </ul>
             */console.log})
         }
 
         _this.data.currentLayoutId = _this.objects.$container.data('layout-id') || 1;
 
         _this.data.mode = _this.objects.$container.hasClass('editable')?'edit':'view';
+        _this.data.isStreaming = _this.objects.$container.data('is-streaming');
 
         let pollDataString = decodeURIComponent(_this.objects.$container.data('poll-data') || '') || '{}';
 

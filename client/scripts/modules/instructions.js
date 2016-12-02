@@ -26,6 +26,9 @@ module.exports = function(sandbox){
                     fb_video_id: _this.objects.$formVideoId.find('[name=fb_video_id]').val()
                 };
 
+                _this.objects.$formVideoId.attr('data-is-submitting', 1);
+                _this.objects.$formVideoId.find(':input').prop('disabled', true);
+
                 $
                     .ajax({
                         type: 'POST',
@@ -34,10 +37,17 @@ module.exports = function(sandbox){
                         contentType: "application/json; charset=utf-8",
                     })
                     .done((response) => {
-                        console.log('response', response);
-                        if(response._id){
-                            window.location.reload();
+                        if(response.fb_video_id ){
+                            // window.location.reload();
+                            $('.cell.facebook-post-id .body').html(response.fb_video_id);
                         }
+                    })
+                    .fail((response) => {
+                        bootbox.alert('There\'s an error');
+                    })
+                    .always(() => {
+                        _this.objects.$formVideoId.attr('data-is-submitting', 0);
+                        _this.objects.$formVideoId.find(':input').prop('disabled', false);
                     })
                 ;
             })
@@ -55,6 +65,9 @@ module.exports = function(sandbox){
                     fb_stream_key: _this.objects.$formSetupStream.find('[name=fb_stream_key]').val()
                 };
 
+                _this.objects.$formSetupStream.attr('data-is-submitting', 1);
+                _this.objects.$formSetupStream.find(':input').prop('disabled', true);
+
                 $
                     .ajax({
                         type: 'POST',
@@ -63,10 +76,16 @@ module.exports = function(sandbox){
                         contentType: "application/json; charset=utf-8",
                     })
                     .done((response) => {
-                        console.log('response', response);
-                        if(response._id){
-                            window.location.reload();
+                        if(response.fb_stream_key){
+
                         }
+                    })
+                    .fail((response) => {
+                        bootbox.alert('There\'s an error');
+                    })
+                    .always(() => {
+                        _this.objects.$formSetupStream.attr('data-is-submitting', 0);
+                        _this.objects.$formSetupStream.find(':input').prop('disabled', false);
                     })
                 ;
             })

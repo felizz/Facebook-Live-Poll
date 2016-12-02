@@ -21,24 +21,7 @@
 
     </head>
     <body class="page-details">
-        <div id="header">
-            <a id="header__logo" href="/"></a>
-
-            <div id="header__menu_left">
-                <a class="item" href="/">Create Poll</a>
-            </div>
-
-            <div id="header__menu_right">
-                <a class="item" href="https://donorbox.org/pollsimply" target="_blank">Donate</a>
-                <%if (req.user){%>
-                <div class="item avatar">
-                    <img src="<%= req.user.avatar %>" alt="" height="28"/>
-                </div>
-                <%} else {%>
-                <a class="item" href="/">Login</a>
-                <%}%>
-            </div>
-        </div>
+    <% include partials/header.ejs %>
 
         <div id="main">
             <div class="header">
@@ -53,7 +36,7 @@
                                 <div class="menu">
                                     <div class="info">
                                         <div class="header">
-                                            <span class="meta creator"><%- poll._owner.name %></span>
+                                            <span class="meta creator"><% if (poll._owner){ %><%- poll._owner.name %><% } %></span>
                                         </div>
 
                                         <div class="body">
@@ -119,7 +102,7 @@
                         <div class="sn segment" id="segment_instructions">
                             <div class="body">
                                 <p>To track your facebook reactions count, please enter your Facebook Video ID below:</p>
-                                <form action="" class="sn form" id="form_video_id" data-poll-id="<%- poll._id %>">
+                                <form action="" class="sn form" id="form_video_id" data-poll-id="<%- poll._id %>" data-is-submitting="0">
                                     <div class="form-group">
                                         <label for="form_video_id__input_video_id" id="form_video_id__label_video_id">Video ID</label>
                                         <input type="text" class="form-control" id="form_video_id__input_video_id" name="fb_video_id" placeholder="Enter your digit-only Video Id here"/>
@@ -186,7 +169,7 @@
                                                         Copy only the Video Id (normally is the digit-only string) from the link and paste it below:
                                                     </p>
 
-                                                    <form action="" class="form" id="form_setup_stream" data-poll-id="<%- poll._id%>">
+                                                    <form action="" class="form" id="form_setup_stream" data-poll-id="<%- poll._id%>" data-is-submitting="0">
                                                         <div class="form-group">
                                                             <label for="form_setup_stream__input_stream_key" id="form_setup_stream__label_stream_key">Video Id</label>
                                                             <input type="text" class="form-control" id="form_setup_stream__input_stream_key" name="fb_stream_key" placeholder="Enter your Facebook Video Id Here"/>
