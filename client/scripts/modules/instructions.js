@@ -12,22 +12,22 @@ module.exports = function(sandbox){
             })
         ;
 
-        _this.bindFormVideoIdEvents();
-        _this.bindFormSetupStreamEvents();
+        _this.bindFormVideoId1Events();
+        _this.bindFormVideoId2Events();
     }
 
-    _this.bindFormVideoIdEvents = () => {
-        _this.objects.$formVideoId
+    _this.bindFormVideoId1Events = () => {
+        _this.objects.$formVideoId1
             .on('submit', function(event){
                 event.preventDefault();
-                let pollId = _this.objects.$formVideoId.data('poll-id');
+                let pollId = _this.objects.$formVideoId1.data('poll-id');
 
                 let requestedData = {
-                    fb_video_id: _this.objects.$formVideoId.find('[name=fb_video_id]').val()
+                    fb_video_id: _this.objects.$formVideoId1.find('[name=fb_video_id]').val()
                 };
 
-                _this.objects.$formVideoId.attr('data-is-submitting', 1);
-                _this.objects.$formVideoId.find(':input').prop('disabled', true);
+                _this.objects.$formVideoId1.attr('data-is-submitting', 1);
+                _this.objects.$formVideoId1.find(':input').prop('disabled', true);
 
                 $
                     .ajax({
@@ -40,33 +40,34 @@ module.exports = function(sandbox){
                         if(response.fb_video_id ){
                             // window.location.reload();
                             $('.cell.facebook-post-id .body').html(response.fb_video_id);
+                            _this.objects.$formVideoId1.hide();
+                            _this.objects.$formVideoId2.hide();
                         }
                     })
                     .fail((response) => {
                         bootbox.alert('There\'s an error');
                     })
                     .always(() => {
-                        _this.objects.$formVideoId.attr('data-is-submitting', 0);
-                        _this.objects.$formVideoId.find(':input').prop('disabled', false);
+                        _this.objects.$formVideoId1.attr('data-is-submitting', 0);
+                        _this.objects.$formVideoId1.find(':input').prop('disabled', false);
                     })
                 ;
             })
         ;
     }
 
-    _this.bindFormSetupStreamEvents = () => {
-        _this.objects.$formSetupStream
+    _this.bindFormVideoId2Events = () => {
+        _this.objects.$formVideoId2
             .on('submit', function(event){
                 event.preventDefault();
-                let pollId = _this.objects.$formSetupStream.data('poll-id');
+                let pollId = _this.objects.$formVideoId2.data('poll-id');
 
                 let requestedData = {
-                    fb_stream_url: _this.objects.$formSetupStream.find('[name=fb_stream_url]').val(),
-                    fb_stream_key: _this.objects.$formSetupStream.find('[name=fb_stream_key]').val()
+                    fb_video_id: _this.objects.$formVideoId2.find('[name=fb_video_id]').val()
                 };
 
-                _this.objects.$formSetupStream.attr('data-is-submitting', 1);
-                _this.objects.$formSetupStream.find(':input').prop('disabled', true);
+                _this.objects.$formVideoId2.attr('data-is-submitting', 1);
+                _this.objects.$formVideoId2.find(':input').prop('disabled', true);
 
                 $
                     .ajax({
@@ -76,16 +77,19 @@ module.exports = function(sandbox){
                         contentType: "application/json; charset=utf-8",
                     })
                     .done((response) => {
-                        if(response.fb_stream_key){
-
+                        if(response.fb_video_id ){
+                            // window.location.reload();
+                            $('.cell.facebook-post-id .body').html(response.fb_video_id);
+                            _this.objects.$formVideoId1.hide();
+                            _this.objects.$formVideoId2.hide();
                         }
                     })
                     .fail((response) => {
                         bootbox.alert('There\'s an error');
                     })
                     .always(() => {
-                        _this.objects.$formSetupStream.attr('data-is-submitting', 0);
-                        _this.objects.$formSetupStream.find(':input').prop('disabled', false);
+                        _this.objects.$formVideoId2.attr('data-is-submitting', 0);
+                        _this.objects.$formVideoId2.find(':input').prop('disabled', false);
                     })
                 ;
             })
@@ -97,8 +101,8 @@ module.exports = function(sandbox){
 
         _this.objects = {};
         _this.objects.$container = $('#segment_instructions');
-        _this.objects.$formVideoId = $('#form_video_id');
-        _this.objects.$formSetupStream = $('#form_setup_stream');
+        _this.objects.$formVideoId1 = $('#form_video_id_1');
+        _this.objects.$formVideoId2 = $('#form_video_id_2');
         _this.objects.$accordion = $('#accordion_instructions');
         _this.objects.$accordionHeader = _this.objects.$accordion.children('.header');
 
