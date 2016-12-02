@@ -46,7 +46,7 @@ module.exports = function(sandbox){
                         bootbox.alert('There\'s an error');
                     })
                     .always(() => {
-                        _this.objects.$formVideoId.data('is-submitting', 0);
+                        _this.objects.$formVideoId.attr('data-is-submitting', 0);
                         _this.objects.$formVideoId.find(':input').prop('disabled', false);
                     })
                 ;
@@ -84,7 +84,7 @@ module.exports = function(sandbox){
                         bootbox.alert('There\'s an error');
                     })
                     .always(() => {
-                        _this.objects.$formSetupStream.data('is-submitting', 0);
+                        _this.objects.$formSetupStream.attr('data-is-submitting', 0);
                         _this.objects.$formSetupStream.find(':input').prop('disabled', false);
                     })
                 ;
