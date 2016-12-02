@@ -107,7 +107,7 @@ module.exports = function(sandbox){
         if(_this.data.isStreaming){
             setInterval(()=>{
                 _this.renderReactionsCounts();
-            }, 4000);
+            }, 3000);
         } else {
             _this.renderReactionsCounts();
         }
