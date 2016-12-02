@@ -104,7 +104,13 @@ module.exports = function(sandbox){
 
     _this.render = () => {
         _this.renderLayout(_this.data.currentLayoutId);
-        _this.renderReactionsCounts();
+        if(_this.data.isStreaming){
+            setInterval(()=>{
+                _this.renderReactionsCounts();
+            }, 4000);
+        } else {
+            _this.renderReactionsCounts();
+        }
     }
 
     _this.bindPublishEvents = () => {
@@ -718,6 +724,7 @@ module.exports = function(sandbox){
         _this.data.currentLayoutId = _this.objects.$container.data('layout-id') || 1;
 
         _this.data.mode = _this.objects.$container.hasClass('editable')?'edit':'view';
+        _this.data.isStreaming = _this.objects.$container.data('is-streaming');
 
         let pollDataString = decodeURIComponent(_this.objects.$container.data('poll-data') || '') || '{}';
 
