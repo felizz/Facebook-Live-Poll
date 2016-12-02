@@ -21,7 +21,7 @@ var config = require('utils/config');
 var fs = require('fs');
 var NodeCache = require('node-cache');
 var fbCache = new NodeCache();
-var CACHING_TTL = 4; //seconds
+var CACHING_TTL = 3; //seconds
 
 var RecordNotFoundError = require('infra/errors/record-not-found-error');
 
@@ -175,10 +175,9 @@ var poll = {
                 return apiErrors.RESOURCE_NOT_FOUND.new().sendWith(res);
             }
 
-            //Fixme enable this when we not testing anymore
-            //if (poll._owner != req.user._id){
-            //    return apiErrors.INSUFFICIENT_PRIVILEGES.new().sendWith(res);
-            //}
+            if (poll._owner != req.user._id){
+                return apiErrors.INSUFFICIENT_PRIVILEGES.new().sendWith(res);
+            }
 
             if(req.body.fb_video_id){
                 poll.fb_video_id = req.body.fb_video_id;
