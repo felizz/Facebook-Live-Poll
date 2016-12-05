@@ -637,8 +637,8 @@ module.exports = function(sandbox){
                         </div>
                     {% if mode == 'edit' %}
                         <div class="layer controls">
-                            <input type="text" class="object input title-1" placeholder="Enter option's name" value="{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}"/>
-                            <input type="text" class="object input title-2" placeholder="Enter option's name" value="{% if (poll.texts && poll.texts[1]) %}{{poll.texts[1]}}{% endif %}"/>
+                            <textarea type="text" class="object input title-1" placeholder="Enter option's name">{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}</textarea>
+                            <textarea type="text" class="object input title-2" placeholder="Enter option's name">{% if (poll.texts && poll.texts[1]) %}{{poll.texts[1]}}{% endif %}</textarea>
                             <div class="object trigger image-trigger" data-trigger-object="image-1"></div>
                             <div class="object trigger image-trigger" data-trigger-object="image-2"></div>
                             <div class="object trigger reaction-trigger" data-trigger-object="reaction-1"></div>
