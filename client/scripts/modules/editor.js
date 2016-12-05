@@ -607,8 +607,6 @@ module.exports = function(sandbox){
             layerControls: '.layer.controls'
         };
 
-        console.log(_this.DOMSelectors);
-
         _this.objects = {};
         _this.objects.$container = $(_this.data.containerDOM);
         _this.objects.$menuLayouts = _this.objects.$container.find('.menu .layouts');
