@@ -631,6 +631,9 @@ module.exports = function(sandbox){
                             <div class="object reaction reaction-2" data-reaction-value="{% if (poll.images && poll.images[1]) %}{{poll.reactions[1]}}{% else %}like{% endif %}"></div>
                             <div class="object text title-1">{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}</div>
                             <div class="object text title-2">{% if (poll.texts && poll.texts[1]) %}{{poll.texts[1]}}{% endif %}</div>
+                        {% if mode == 'edit' %}
+                            <div class="object reaction-tooltip">Tap to change</div>
+                        {% endif %}
                         </div>
                     {% if mode == 'edit' %}
                         <div class="layer controls">
@@ -671,6 +674,9 @@ module.exports = function(sandbox){
                             <div class="object reaction reaction-1" data-reaction-value="{% if (poll.images && poll.images[0]) %}{{poll.reactions[0]}}{% else %}haha{% endif %}"></div>
                             <div class="object reaction reaction-2" data-reaction-value="{% if (poll.images && poll.images[1]) %}{{poll.reactions[1]}}{% else %}like{% endif %}"></div>
                             <div class="object text question">{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}</div>
+                        {% if mode == 'edit' %}
+                            <div class="object reaction-tooltip">Tap to change</div>
+                        {% endif %}
                         </div>
                     {% if mode == 'edit' %}
                         <div class="layer controls">
