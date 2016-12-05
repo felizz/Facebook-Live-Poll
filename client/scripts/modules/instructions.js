@@ -40,7 +40,7 @@ module.exports = function(sandbox){
                         if(response.fb_video_id ){
                             // window.location.reload();
                             $('.cell.facebook-post-id .body').html(response.fb_video_id);
-                            // _this.objects.$formVideoId1.hide();
+                            _this.objects.$formVideoId2.find('input').val(response.fb_video_id);
                             // _this.objects.$formVideoId2.hide();
                         }
                     })
@@ -81,7 +81,7 @@ module.exports = function(sandbox){
                             // window.location.reload();
                             $('.cell.facebook-post-id .body').html(response.fb_video_id);
                             // _this.objects.$formVideoId1.hide();
-                            // _this.objects.$formVideoId2.hide();
+                            _this.objects.$formVideoId1.find('input').val(response.fb_video_id);
                         }
                     })
                     .fail((response) => {
