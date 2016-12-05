@@ -40,8 +40,8 @@ module.exports = function(sandbox){
                         if(response.fb_video_id ){
                             // window.location.reload();
                             $('.cell.facebook-post-id .body').html(response.fb_video_id);
-                            _this.objects.$formVideoId1.hide();
-                            _this.objects.$formVideoId2.hide();
+                            // _this.objects.$formVideoId1.hide();
+                            // _this.objects.$formVideoId2.hide();
                         }
                     })
                     .fail((response) => {
@@ -80,8 +80,8 @@ module.exports = function(sandbox){
                         if(response.fb_video_id ){
                             // window.location.reload();
                             $('.cell.facebook-post-id .body').html(response.fb_video_id);
-                            _this.objects.$formVideoId1.hide();
-                            _this.objects.$formVideoId2.hide();
+                            // _this.objects.$formVideoId1.hide();
+                            // _this.objects.$formVideoId2.hide();
                         }
                     })
                     .fail((response) => {

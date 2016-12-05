@@ -105,7 +105,7 @@
                                 <form action="" class="sn form" id="form_video_id_1" data-poll-id="<%- poll._id %>" data-is-submitting="0">
                                     <div class="form-group">
                                         <label for="form_video_id_1__input_video_id" id="form_video_id_1__label_video_id">Video ID</label>
-                                        <input type="text" class="form-control" id="form_video_id_1__input_video_id" name="fb_video_id" placeholder="Enter your digit-only Video Id here"/>
+                                        <input type="text" class="form-control" id="form_video_id_1__input_video_id" name="fb_video_id" required placeholder="Enter your digit-only Video Id here" value="<%- poll.fb_video_id%>" <% if(!isPollOwner){%>readonly="readonly" disabled="disabled"<% }%>/>
                                         <button class="sn btn" id="form_video_id_1__submit">Save</button>
                                     </div>
                                 </form>
@@ -172,7 +172,7 @@
                                                     <form action="" class="form" id="form_video_id_2" data-poll-id="<%- poll._id%>" data-is-submitting="0">
                                                         <div class="form-group">
                                                             <label for="form_video_id_2__input_video_id" id="form_video_id_2__label_video_id">Video Id</label>
-                                                            <input type="text" class="form-control" id="form_video_id_2__input_video_id" name="fb_video_id" placeholder="Enter your Facebook Video Id Here"/>
+                                                            <input type="text" class="form-control" id="form_video_id_2__input_video_id" required name="fb_video_id" placeholder="Enter your Facebook Video Id Here"/>
                                                             <button class="sn btn" id="form_video_id_2__submit">Save</button>
                                                         </div>
                                                     </form>
