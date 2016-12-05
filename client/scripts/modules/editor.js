@@ -598,14 +598,16 @@ module.exports = function(sandbox){
             reactionsList1: '.object.reactions-list[data-target-object="reaction-1"]',
             reactionsList2: '.object.reactions-list[data-target-object="reaction-2"]',
             inputQuestion: 'textarea.object.question',
-            inputText1: 'input.object.input.title-1',
-            inputText2: 'input.object.input.title-2',
+            inputText1: '.object.input.title-1',
+            inputText2: '.object.input.title-2',
 
             usedReactionsCounter: '.reaction-used-counter',
 
             layerImages: '.layer.images',
             layerControls: '.layer.controls'
         };
+
+        console.log(_this.DOMSelectors);
 
         _this.objects = {};
         _this.objects.$container = $(_this.data.containerDOM);
