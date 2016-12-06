@@ -160,8 +160,8 @@
 
                 >.item{
                   display: inline-block;
-                  opacity: 0.3;
-                  color: #505965;
+                  //opacity: 0.3;
+                  color: #008EFE;
                   font-family: "Gotham Rounded Medium";
                   font-size: 15px;
                   font-weight: 500;
@@ -321,6 +321,30 @@
                             left: 380px;
                           }
                         }
+
+                        &.reaction-tooltip{
+                          top: 290px;
+                          left: 102px;
+                          background-color: rgba(2, 2, 2, 0.41);
+                          padding: 5px 10px;
+                          border-radius: 5px;
+                          color: #FFFFFF;
+                          font-size: 12px;
+                          line-height: 16px;
+
+                          &:after{
+                            content: '';
+                            position: absolute;
+                            border-style: solid;
+                            border-width: 0 5px 5px;
+                            border-color: rgba(2, 2, 2, 0.41) transparent;
+                            display: block;
+                            width: 0;
+                            z-index: 1;
+                            top: -5px;
+                            left: 42px;
+                          }
+                        }
                       }
                     }
                     &.controls{
@@ -342,6 +366,8 @@
                             .text-medium;
                             font-size: 16px;
                             font-weight: 500;
+
+                            resize: none;
                           }
 
                           &.title-1{
@@ -582,12 +608,36 @@
                             line-height: 30px;
                           }
                           &.reactions-count-1{
-                            top: 290px;
+                            top: 300px;
                             left: 80px;
                           }
                           &.reactions-count-2{
-                            top: 290px;
+                            top: 300px;
                             left: 380px;
+                          }
+                        }
+
+                        &.reaction-tooltip{
+                          top: 300px;
+                          left: 98.4px;
+                          background-color: rgba(2, 2, 2, 0.41);
+                          padding: 5px 10px;
+                          border-radius: 5px;
+                          color: #FFFFFF;
+                          font-size: 12px;
+                          line-height: 16px;
+
+                          &:after{
+                            content: '';
+                            position: absolute;
+                            border-style: solid;
+                            border-width: 0 5px 5px;
+                            border-color: rgba(2, 2, 2, 0.41) transparent;
+                            display: block;
+                            width: 0;
+                            z-index: 1;
+                            top: -5px;
+                            left: 42px;
                           }
                         }
                       }

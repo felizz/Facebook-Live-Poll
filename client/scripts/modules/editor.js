@@ -10,7 +10,7 @@ class Poll{
     initialize(params){
         this.id = params.id || 0;
         this.layout = params.layout || 0;
-        this.reactions = params.reactions || ['haha', 'like'];
+        this.reactions = params.reactions || ['wow', 'love'];
         this.texts = params.texts || [];
         this.images = params.images || [];
     }
@@ -19,8 +19,8 @@ class Poll{
 const rawPoll = {
     layout: 1,
     reactions: {
-        reaction1: 'haha',
-        reaction2: 'like'
+        reaction1: 'wow',
+        reaction2: 'love'
     },
     texts: {
         'question': '',
@@ -598,8 +598,8 @@ module.exports = function(sandbox){
             reactionsList1: '.object.reactions-list[data-target-object="reaction-1"]',
             reactionsList2: '.object.reactions-list[data-target-object="reaction-2"]',
             inputQuestion: 'textarea.object.question',
-            inputText1: 'input.object.input.title-1',
-            inputText2: 'input.object.input.title-2',
+            inputText1: '.object.input.title-1',
+            inputText2: '.object.input.title-2',
 
             usedReactionsCounter: '.reaction-used-counter',
 
@@ -627,15 +627,18 @@ module.exports = function(sandbox){
                         <div class="layer images">
                             <div class="object image image-1" {% if (poll.images && poll.images[0]) %}style="background-image:url({{poll.images[0]}});"{% endif %}></div>
                             <div class="object image image-2" {% if (poll.images && poll.images[1]) %}style="background-image:url({{poll.images[1]}});"{% endif %}></div>
-                            <div class="object reaction reaction-1" data-reaction-value="{% if (poll.images && poll.images[0]) %}{{poll.reactions[0]}}{% else %}haha{% endif %}"></div>
-                            <div class="object reaction reaction-2" data-reaction-value="{% if (poll.images && poll.images[1]) %}{{poll.reactions[1]}}{% else %}like{% endif %}"></div>
+                            <div class="object reaction reaction-1" data-reaction-value="{% if (poll.images && poll.images[0]) %}{{poll.reactions[0]}}{% else %}wow{% endif %}"></div>
+                            <div class="object reaction reaction-2" data-reaction-value="{% if (poll.images && poll.images[1]) %}{{poll.reactions[1]}}{% else %}love{% endif %}"></div>
                             <div class="object text title-1">{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}</div>
                             <div class="object text title-2">{% if (poll.texts && poll.texts[1]) %}{{poll.texts[1]}}{% endif %}</div>
+                        {% if mode == 'edit' %}
+                            <div class="object reaction-tooltip">Tap to change</div>
+                        {% endif %}
                         </div>
                     {% if mode == 'edit' %}
                         <div class="layer controls">
-                            <input type="text" class="object input title-1" placeholder="Enter option's name" value="{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}"/>
-                            <input type="text" class="object input title-2" placeholder="Enter option's name" value="{% if (poll.texts && poll.texts[1]) %}{{poll.texts[1]}}{% endif %}"/>
+                            <textarea type="text" class="object input title-1" placeholder="Enter option's name">{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}</textarea>
+                            <textarea type="text" class="object input title-2" placeholder="Enter option's name">{% if (poll.texts && poll.texts[1]) %}{{poll.texts[1]}}{% endif %}</textarea>
                             <div class="object trigger image-trigger" data-trigger-object="image-1"></div>
                             <div class="object trigger image-trigger" data-trigger-object="image-2"></div>
                             <div class="object trigger reaction-trigger" data-trigger-object="reaction-1"></div>
@@ -668,9 +671,12 @@ module.exports = function(sandbox){
                             <div class="object background" {% if (poll.images && poll.images[0]) %}style="background-image:url({{poll.images[0]}});"{% endif %}></div>
                             <div class="object image image-1" {% if (poll.images && poll.images[1]) %}style="background-image:url({{poll.images[1]}});"{% endif %}></div>
                             <div class="object image image-2" {% if (poll.images && poll.images[2]) %}style="background-image:url({{poll.images[2]}});"{% endif %}></div>
-                            <div class="object reaction reaction-1" data-reaction-value="{% if (poll.images && poll.images[0]) %}{{poll.reactions[0]}}{% else %}haha{% endif %}"></div>
-                            <div class="object reaction reaction-2" data-reaction-value="{% if (poll.images && poll.images[1]) %}{{poll.reactions[1]}}{% else %}like{% endif %}"></div>
+                            <div class="object reaction reaction-1" data-reaction-value="{% if (poll.images && poll.images[0]) %}{{poll.reactions[0]}}{% else %}wow{% endif %}"></div>
+                            <div class="object reaction reaction-2" data-reaction-value="{% if (poll.images && poll.images[1]) %}{{poll.reactions[1]}}{% else %}love{% endif %}"></div>
                             <div class="object text question">{% if (poll.texts && poll.texts[0]) %}{{poll.texts[0]}}{% endif %}</div>
+                        {% if mode == 'edit' %}
+                            <div class="object reaction-tooltip">Tap to change</div>
+                        {% endif %}
                         </div>
                     {% if mode == 'edit' %}
                         <div class="layer controls">
